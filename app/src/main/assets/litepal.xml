@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<litepal>
+    <!--创建数据库名称，默认在末尾添加.db扩展名 -->
+    <dbname value="keeper" />
+
+    <!--数据库版本号，用于更新数据库-->
+    <version value="1" />
+
+    <!--
+        将定义的数据实体类映射到数据表中
+        例如有实体类Reader和Magazine，则映射方式如下:
+        <list>
+            <mapping class="com.test.model.Reader" />
+            <mapping class="com.test.model.Magazine" />
+        </list>
+    -->
+
+    <list>
+        <mapping class="cn.edu.hznu.moneykeeper.CostBean"/>  <!--实体类CostBean-->
+    </list>
+
+    <!--
+       数据库文件存储路径，建议默认
+        <storage value="external" />
+    -->
+
+</litepal>

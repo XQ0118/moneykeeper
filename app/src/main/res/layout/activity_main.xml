@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical">
+
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <include
+            android:id="@+id/toolbarLayout"
+            layout="@layout/home_toolbar" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <!--<android.support.v4.view.ViewPager-->
+        <!--android:id="@+id/pager"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="#E0FFFF">-->
+
+        <!--<android.support.design.widget.TabLayout-->
+            <!--android:id="@+id/tab_layout_id"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--app:tabIndicatorColor="#922123"-->
+            <!--app:tabSelectedTextColor="#C71585"-->
+            <!--app:tabTextColor="#ced0d3"-->
+            <!--app:tabMode="fixed"-->
+            <!--app:tabGravity="fill">-->
+
+            <!--<android.support.design.widget.TabItem-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+
+                <!--android:text="tab1"/>-->
+            <!--<android.support.design.widget.TabItem-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="tab2"/>-->
+
+        <!--</android.support.design.widget.TabLayout>-->
+
+    <!--</android.support.v4.view.ViewPager>-->
+
+
+    <ListView
+        android:id="@+id/lv_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:divider="@null"
+        android:fadingEdge="none"
+        android:headerDividersEnabled="false"
+        android:footerDividersEnabled="false"
+        android:layout_margin="10dp"
+        android:dividerHeight="10dp"
+        >
+
+    </ListView>
+
+    <include layout="@layout/fabmenu" />
+
+
+</android.support.design.widget.CoordinatorLayout>

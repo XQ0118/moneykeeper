@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddcostActivity"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="113"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/typeChoose"
+            layout="@layout/layout_twe_choose" />
+
+        <EditText
+            android:id="@+id/et_cost_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="10"
+            android:layout_margin="5dp"
+            android:hint="Cost title"
+            android:windowSoftInputMode="adjustPan"
+            />
+
+        <!--<DatePicker-->
+            <!--android:id="@+id/db_cost_date"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_margin="5dp"-->
+            <!--android:layout_below="@+id/et_cost_title"-->
+            <!--android:layout_weight="1">-->
+
+        <!--</DatePicker>-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="5dp">
+            <TextView
+                android:id="@+id/btnDatePickerDialog"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/addcost_utils"
+                android:layout_marginLeft="15dp"
+                android:textSize="15sp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                />
+            <EditText
+                android:id="@+id/cost_note_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/addcost_utils"
+                android:textSize="15sp"
+                android:layout_marginLeft="15dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:text="备注"/>
+            <Button
+                android:id="@+id/btn_add_cost"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/db_cost_date"
+                android:background="@drawable/addcost_utils"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:text="确定"
+                android:textSize="15dp"
+
+                />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="100"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:windowSoftInputMode="adjustPan"
+        >
+        <RelativeLayout
+            android:id="@+id/left_line_part"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/md_black_down"
+            >
+            <EditText
+                android:id="@+id/et_cost_money"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="5dp"
+                android:hint="@string/input_cost"
+                android:textColorHint="@color/half_black"
+                android:gravity="end"
+                android:cursorVisible="true"
+                android:textSize="39.5sp"
+                android:maxLength="7"
+                android:textColor="@color/white"
+                android:background="@color/md_black_down"
+                />
+        </RelativeLayout>
+
+        <cn.edu.hznu.moneykeeper.Util.DIYKeyboardView
+            android:id="@+id/ky_keyboard"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="100"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:labelTextSize="50sp"
+            android:keyTextSize="50sp"
+            android:shadowRadius="0.0" />
+
+    </LinearLayout>
+
+</LinearLayout>
