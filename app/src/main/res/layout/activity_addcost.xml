@@ -21,15 +21,24 @@
             android:id="@+id/typeChoose"
             layout="@layout/layout_twe_choose" />
 
-        <EditText
-            android:id="@+id/et_cost_title"
+        <android.support.v4.view.ViewPager
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="10"
-            android:layout_margin="5dp"
-            android:hint="Cost title"
-            android:windowSoftInputMode="adjustPan"
-            />
+            android:layout_weight="10">
+
+            <EditText
+                android:id="@+id/et_cost_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:layout_margin="5dp"
+                android:hint="Cost title"
+                android:windowSoftInputMode="adjustPan"
+                />
+
+        </android.support.v4.view.ViewPager>
+
+
 
         <!--<DatePicker-->
             <!--android:id="@+id/db_cost_date"-->

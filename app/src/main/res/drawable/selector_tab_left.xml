@@ -6,10 +6,10 @@
             <gradient android:endColor="@color/colorAccentEnd" android:startColor="@color/colorAccentStart" />
         </shape>
     </item>
-    <item>
+    <item android:state_checked="false">
         <shape>
             <corners android:bottomLeftRadius="5dp" android:topLeftRadius="5dp" />
-            <solid android:color="@color/colorItemBackground" />
+            <solid android:color="@color/md_black_down" />
         </shape>
     </item>
 </selector>

@@ -1,27 +1,28 @@
 package cn.edu.hznu.moneykeeper;
 
-import com.getbase.floatingactionbutton.FloatingActionButton;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
 
-import android.os.Build;
-import android.support.annotation.RequiresApi;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.Toast;
-import android.support.v7.widget.Toolbar;
+        import android.app.AlertDialog;
+        import android.content.DialogInterface;
+        import android.content.Intent;
 
-import org.litepal.LitePal;
+        import android.os.Build;
+        import android.support.annotation.RequiresApi;
+        import android.support.design.widget.FloatingActionButton;
+        import android.support.v7.app.AppCompatActivity;
+        import android.os.Bundle;
+        import android.util.Log;
+        import android.view.LayoutInflater;
+        import android.view.View;
+        import android.widget.AdapterView;
+        import android.widget.ListView;
+        import android.widget.Toast;
+        import android.support.v7.widget.Toolbar;
 
-import java.util.ArrayList;
-import java.util.List;
+        import org.litepal.LitePal;
+
+        import java.util.ArrayList;
+        import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    private FloatingActionButton fab_a, fab_b;
+    private FloatingActionButton fab;
     private Intent intent;
     private CostListAdapter adapter;
 
@@ -51,13 +52,10 @@ public class MainActivity extends AppCompatActivity {
 
         mCostBeanList = new ArrayList<>();
 
-
         initCostData();
 
-
-        fab_a = (FloatingActionButton) findViewById(R.id.action_a);
-        fab_b = (FloatingActionButton) findViewById(R.id.action_b);
-        fab_a.setOnClickListener(new View.OnClickListener() {
+        fab = findViewById(R.id.btn_Add);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Toast.makeText(MainActivity.this, "记一笔", Toast.LENGTH_SHORT).show();
@@ -66,18 +64,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        fab_b.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "记手账", Toast.LENGTH_SHORT).show();
-
-            }
-        });
 
     }
-
-
-
 
     private void initCostData() {
 

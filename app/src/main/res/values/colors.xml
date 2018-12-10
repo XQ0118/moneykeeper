@@ -4,10 +4,9 @@
 
 <!-- google's material design colours from
 http://www.google.com/design/spec/style/color.html#color-ui-color-palette -->
-<color name="colorPrimary">#DA3E35</color>
-<color name="colorPrimaryDark">#DA3E35</color>
-<color name="colorAccent">#DA3Eff</color>
-<color name="colorAccentDark">#DA3E35</color>
+    <color name="colorPrimary">#9576fc</color>
+    <color name="colorPrimaryDark">#f9f9fa</color>
+    <color name="colorAccent">#9576fc</color>
 
     <!--use daily-->
     <color name="md_black_down">#414459</color>
