@@ -1,34 +1,34 @@
 package cn.edu.hznu.moneykeeper;
 
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.inputmethodservice.Keyboard;
+import android.app.FragmentTransaction;
 import android.inputmethodservice.KeyboardView;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.MenuItem;
-import android.view.MotionEvent;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.edu.hznu.moneykeeper.Adapter.NotePagerAdapter;
 import cn.edu.hznu.moneykeeper.Util.DateUtils;
 import cn.edu.hznu.moneykeeper.Util.GetNowTime;
 import cn.edu.hznu.moneykeeper.Util.KeyBoardUtil;
+import cn.edu.hznu.moneykeeper.add_fragment.ExpendFragment;
+import cn.edu.hznu.moneykeeper.add_fragment.IncomeFragment;
 
 import static cn.edu.hznu.moneykeeper.Util.DateUtils.FORMAT_M;
 import static cn.edu.hznu.moneykeeper.Util.DateUtils.FORMAT_Y;
-import static cn.edu.hznu.moneykeeper.Util.DateUtils.FORMAT_YMD;
 
 public class AddcostActivity extends AppCompatActivity {
     /*keyboard*/
@@ -52,6 +52,15 @@ public class AddcostActivity extends AppCompatActivity {
     protected int mDay;
     protected String days;
     private TextView dateTv;  //时间选择
+
+    //用于滑动切换的fragment
+    private final String TAG = "SpeedDialActivity";
+
+    private RadioGroup mRadioGroup;
+    private ExpendFragment mExpendFragment;
+    private IncomeFragment mIncomeFragment;
+
+    private android.support.v4.app.FragmentTransaction transaction;
 
 
     protected void initTime(){
@@ -78,8 +87,13 @@ public class AddcostActivity extends AppCompatActivity {
         dateTv = (TextView) findViewById(R.id.btnDatePickerDialog);
         btn_adddata = (Button) findViewById(R.id.btn_add_cost);
 
-        initView();
-        initEvent();
+        //初始化界面组件
+        init_date();
+        setupWidgets();
+        
+
+        initKeyBoardView();
+        initKeyBoardEvent();
         initTime();
 
         dateTv.setOnClickListener(new View.OnClickListener() {
@@ -102,34 +116,87 @@ public class AddcostActivity extends AppCompatActivity {
                 costBean.setCostDateinfo(GetNowTime.getInfoTime());
                 costBean.save();
                 finish();
-
             }
         });
+    }
 
+    private void init_date(){
+        transaction = getSupportFragmentManager().beginTransaction();
+        if (null == mExpendFragment) {
+            mExpendFragment = new ExpendFragment();
+        }
+        transaction.add(R.id.fragment_container, mExpendFragment);
+        // Commit the transaction
+        transaction.commit();
+    }
+
+    private void setupWidgets() {
+
+        mRadioGroup = (RadioGroup) findViewById(R.id.radiogroup);
+        mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                // TODO Auto-generated method stub
+
+                switch (checkedId) {
+                    case R.id.rbLeft:
+                        Log.v(TAG, "setupWidgets():radio0 clicked");
+                        if (null == mExpendFragment) {
+                            mExpendFragment = new ExpendFragment();
+                        }
+                        transaction = getSupportFragmentManager().beginTransaction();
+                        transaction.replace(R.id.fragment_container, mExpendFragment);
+                        // Commit the transaction
+                        transaction.commit();
+                        break;
+
+                    case R.id.rbRight:
+                        Log.v(TAG, "setupWidgets():radio2 clicked");
+
+                        if (null == mIncomeFragment) {
+                            mIncomeFragment = new IncomeFragment();
+                        }
+                        transaction = getSupportFragmentManager().beginTransaction();
+                        transaction.replace(R.id.fragment_container, mIncomeFragment);
+                        // Commit the transaction
+                        transaction.commit();
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        // TODO Auto-generated method stub
+        super.onResume();
 
     }
 
+    @Override
+    protected void onDestroy() {
+        // TODO Auto-generated method stub
+        super.onDestroy();
+        // dataEncapsulation.closeDataBase_speedDial();
+    }
 
     /*keyboard*/
-    private void initView() {
+    private void initKeyBoardView() {
         mKeyboard = findViewById(R.id.ky_keyboard);
         input_money = findViewById(R.id.et_cost_money);
         input_money.setText(setText);//设置EditText控件的内容
         input_money.setSelection(setText.length());//将光标移至文字末尾
     }
 
-    private void initEvent(){
+    private void initKeyBoardEvent(){
         KeyBoardUtil keyBoardUtil = new KeyBoardUtil(mKeyboard, input_money).showKeyboard();
 
     }
     /*keyboard*/
-
-    public void finishAddAndToMainActivity(){
-        Intent myIntent = new Intent();
-        myIntent = new Intent(AddcostActivity.this, MainActivity.class);
-        startActivity(myIntent);
-        this.finish();
-    }
 
     /**
      * 显示日期选择器

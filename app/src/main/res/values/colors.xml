@@ -16,7 +16,7 @@ http://www.google.com/design/spec/style/color.html#color-ui-color-palette -->
     <color name="colorItemBackground">#ffffff</color>
     <color name="black_semi_transparent">#B2000000</color>
     <color name="background">#e5e5e5</color>
-    <color name="half_black">#808080</color>
+    <color name="half_black">#73798C</color>
     <color name="white">#fafafa</color>
     <color name="red">#DA3E35</color>
     <color name="white_pressed">#f1f1f1</color>

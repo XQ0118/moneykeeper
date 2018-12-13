@@ -17,26 +17,84 @@
         android:layout_weight="113"
         android:orientation="vertical">
 
-        <include
-            android:id="@+id/typeChoose"
-            layout="@layout/layout_twe_choose" />
+        <!--<include-->
+            <!--android:id="@+id/typeChoose"-->
+            <!--layout="@layout/layout_twe_choose" />-->
 
-        <android.support.v4.view.ViewPager
+        <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="5dp"
+            android:paddingEnd="15dp"
+            android:paddingStart="15dp"
+            android:paddingTop="5dp"
+            tools:checkedButton="@id/rbLeft"
+            android:id="@+id/radiogroup">
+
+            <RadioButton
+                android:id="@+id/rbLeft"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/selector_tab_left"
+                android:button="@null"
+                android:gravity="center"
+                android:paddingBottom="5dp"
+                android:paddingEnd="10dp"
+                android:paddingStart="10dp"
+                android:paddingTop="5dp"
+                android:textColor="@drawable/radiobutton_textcolor"
+                android:text="支出"
+                android:checked="true"
+                />
+
+            <RadioButton
+                android:id="@+id/rbRight"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="1dp"
+                android:layout_marginStart="1dp"
+                android:layout_weight="1"
+                android:background="@drawable/selector_tab_right"
+                android:button="@null"
+                android:gravity="center"
+                android:paddingBottom="5dp"
+                android:paddingEnd="10dp"
+                android:paddingStart="10dp"
+                android:paddingTop="5dp"
+                android:textColor="@drawable/radiobutton_textcolor"
+                android:text="收入"
+                />
+
+
+        </RadioGroup>
+        <FrameLayout
+            android:id="@+id/fragment_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="10">
 
-            <EditText
-                android:id="@+id/et_cost_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="10"
-                android:layout_margin="5dp"
-                android:hint="Cost title"
-                android:windowSoftInputMode="adjustPan"
-                />
+        </FrameLayout>
 
-        </android.support.v4.view.ViewPager>
+        <!--<android.support.v4.view.ViewPager-->
+            <!--android:id="@+id/viewpager"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="10">-->
+
+            <!--<EditText-->
+                <!--android:id="@+id/et_cost_title"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="10"-->
+                <!--android:layout_margin="5dp"-->
+                <!--android:hint="Cost title"-->
+                <!--android:windowSoftInputMode="adjustPan"-->
+                <!--/>-->
+
+        <!--</android.support.v4.view.ViewPager>-->
 
 
 

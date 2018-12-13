@@ -1,4 +1,4 @@
-package cn.edu.hznu.moneykeeper;
+package cn.edu.hznu.moneykeeper.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,9 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import cn.edu.hznu.moneykeeper.CostBean;
+import cn.edu.hznu.moneykeeper.R;
 
 import static org.litepal.LitePalApplication.getContext;
 

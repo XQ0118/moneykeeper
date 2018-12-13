@@ -16,13 +16,14 @@ package cn.edu.hznu.moneykeeper;
         import android.view.View;
         import android.widget.AdapterView;
         import android.widget.ListView;
-        import android.widget.Toast;
         import android.support.v7.widget.Toolbar;
 
         import org.litepal.LitePal;
 
         import java.util.ArrayList;
         import java.util.List;
+
+        import cn.edu.hznu.moneykeeper.Adapter.CostListAdapter;
 
 
 public class MainActivity extends AppCompatActivity {
