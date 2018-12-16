@@ -7,10 +7,7 @@
     <DatePicker
     android:id="@+id/db_cost_date"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_margin="10dp"
-    android:layout_below="@+id/et_cost_title"
-    android:layout_weight="1">
+    android:layout_height="wrap_content">
 
     </DatePicker>
     

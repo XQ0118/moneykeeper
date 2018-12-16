@@ -1,11 +1,8 @@
 package cn.edu.hznu.moneykeeper;
 
 import android.app.DatePickerDialog;
-import android.app.FragmentTransaction;
 import android.inputmethodservice.KeyboardView;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -13,14 +10,12 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.RadioButton;
+import android.widget.GridView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import cn.edu.hznu.moneykeeper.Adapter.NotePagerAdapter;
+import cn.edu.hznu.moneykeeper.Adapter.IconAdapter;
 import cn.edu.hznu.moneykeeper.Util.DateUtils;
 import cn.edu.hznu.moneykeeper.Util.GetNowTime;
 import cn.edu.hznu.moneykeeper.Util.KeyBoardUtil;
@@ -42,7 +37,7 @@ public class AddcostActivity extends AppCompatActivity {
     private List<CostBean> mCostBeanList;
     /*ListView*/
 
-    private EditText title, input_money;
+    private EditText title, input_money, note;
     private DatePicker datePicker;
     private Button btn_adddata, btnDate ;
 
@@ -62,6 +57,13 @@ public class AddcostActivity extends AppCompatActivity {
 
     private android.support.v4.app.FragmentTransaction transaction;
 
+    //设置默认选择第一个分类
+    private List<Integer> icon;
+    private List<String> titles;
+    //记录上一次点击后的分类
+    private GridView gridViewtitle;
+    public String lasttitle;
+    private IconAdapter iconAdapter;
 
     protected void initTime(){
         //设置日期选择器初始日期
@@ -83,6 +85,7 @@ public class AddcostActivity extends AppCompatActivity {
 
         title = (EditText) findViewById(R.id.et_cost_title);
         input_money = (EditText) findViewById(R.id.et_cost_money);
+        note = (EditText) findViewById(R.id.et_cost_note);
         datePicker = (DatePicker) findViewById(R.id.db_cost_date);
         dateTv = (TextView) findViewById(R.id.btnDatePickerDialog);
         btn_adddata = (Button) findViewById(R.id.btn_add_cost);
@@ -90,10 +93,12 @@ public class AddcostActivity extends AppCompatActivity {
         //初始化界面组件
         init_date();
         setupWidgets();
-        
+        setTitleStatus();
 
+        //初始化软键盘
         initKeyBoardView();
         initKeyBoardEvent();
+        //初始化当前日期
         initTime();
 
         dateTv.setOnClickListener(new View.OnClickListener() {
@@ -110,6 +115,7 @@ public class AddcostActivity extends AppCompatActivity {
                 CostBean costBean = new CostBean();
                 costBean.setCostTitle(title.getText().toString());
                 costBean.setCostMoney(input_money.getText().toString());
+                costBean.setCostNote(note.getText().toString());
 //                costBean.setCostDate(Integer.parseInt(DateUtils.getCurYear(FORMAT_Y)) + "-" + (datePicker.getMonth()+1)
 //                        + "-" + datePicker.getDayOfMonth());
                 costBean.setCostDate(days);
@@ -120,6 +126,7 @@ public class AddcostActivity extends AppCompatActivity {
         });
     }
 
+    //fragment初始化数据
     private void init_date(){
         transaction = getSupportFragmentManager().beginTransaction();
         if (null == mExpendFragment) {
@@ -130,6 +137,7 @@ public class AddcostActivity extends AppCompatActivity {
         transaction.commit();
     }
 
+    //设置fragment
     private void setupWidgets() {
 
         mRadioGroup = (RadioGroup) findViewById(R.id.radiogroup);
@@ -184,6 +192,19 @@ public class AddcostActivity extends AppCompatActivity {
         // dataEncapsulation.closeDataBase_speedDial();
     }
 
+    /**
+     * 设置状态
+     */
+    protected void setTitleStatus() {
+
+        //设置选择的分类
+        EditText title_edit = (EditText) findViewById(R.id.et_cost_title);
+
+        lasttitle = "餐饮";
+        title_edit.setText(lasttitle);
+
+    }
+
     /*keyboard*/
     private void initKeyBoardView() {
         mKeyboard = findViewById(R.id.ky_keyboard);
@@ -194,7 +215,6 @@ public class AddcostActivity extends AppCompatActivity {
 
     private void initKeyBoardEvent(){
         KeyBoardUtil keyBoardUtil = new KeyBoardUtil(mKeyboard, input_money).showKeyboard();
-
     }
     /*keyboard*/
 
@@ -228,6 +248,7 @@ public class AddcostActivity extends AppCompatActivity {
 
                 }
                 dateTv.setText(days);
+
             }
         }, mYear, mMonth, mDay).show();
     }

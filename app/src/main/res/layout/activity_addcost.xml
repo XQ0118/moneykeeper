@@ -68,8 +68,8 @@
                 android:text="收入"
                 />
 
-
         </RadioGroup>
+
         <FrameLayout
             android:id="@+id/fragment_container"
             android:layout_width="match_parent"
@@ -110,10 +110,13 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="25dp"
+            android:layout_height="30dp"
             android:orientation="horizontal"
             android:layout_marginBottom="10dp"
-            android:layout_marginTop="5dp">
+            android:layout_marginTop="5dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
+
             <TextView
                 android:id="@+id/btnDatePickerDialog"
                 android:layout_width="wrap_content"
@@ -123,9 +126,10 @@
                 android:textSize="15sp"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
-                />
+                android:gravity="center"/>
+
             <EditText
-                android:id="@+id/cost_note_btn"
+                android:id="@+id/et_cost_note"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:background="@drawable/addcost_utils"
@@ -133,7 +137,11 @@
                 android:layout_marginLeft="15dp"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
-                android:text="备注"/>
+                android:maxEms="12"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:hint="输入备注" />
+
             <Button
                 android:id="@+id/btn_add_cost"
                 android:layout_width="wrap_content"
@@ -158,13 +166,28 @@
         android:orientation="vertical"
         android:layout_alignParentBottom="true"
         android:windowSoftInputMode="adjustPan"
+
         >
         <RelativeLayout
             android:id="@+id/left_line_part"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/md_black_down"
-            >
+            android:background="@color/md_black_down">
+
+            <EditText
+                android:id="@+id/et_cost_title"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:background="@drawable/addcost_title"
+                android:textSize="16.5sp"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="15dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:gravity="center"
+                android:textColor="@color/white"
+                />
+
             <EditText
                 android:id="@+id/et_cost_money"
                 android:layout_width="wrap_content"
@@ -175,6 +198,7 @@
                 android:textColorHint="@color/half_black"
                 android:gravity="end"
                 android:cursorVisible="true"
+                android:textCursorDrawable="@drawable/test_cursor"
                 android:textSize="39.5sp"
                 android:maxLength="7"
                 android:textColor="@color/white"

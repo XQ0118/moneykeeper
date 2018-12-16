@@ -10,6 +10,7 @@ import android.text.InputType;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,7 +88,6 @@ public class KeyBoardUtil {
                     break;
                 case Keyboard.KEYCODE_DONE:
                     keyboardView.setVisibility(View.VISIBLE);
-
                     break;
                 default:
                     editable.insert(start, Character.toString((char) primaryCode));
@@ -105,6 +105,4 @@ public class KeyBoardUtil {
         }
         return null;
     }
-
-
 }

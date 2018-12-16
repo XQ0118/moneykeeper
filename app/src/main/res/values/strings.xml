@@ -3,4 +3,5 @@
     <string name="add_activity_name">记一笔</string>
     <string name="input_cost">输入金额</string>
     <string name="text_setting">设置</string>
+    <string name="default_note">备注：无</string>
 </resources>

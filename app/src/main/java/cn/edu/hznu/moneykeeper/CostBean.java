@@ -9,6 +9,7 @@ public class CostBean extends LitePalSupport {
     public String costTitle;
     public String costDate;
     public String costMoney;
+    public String costNote;
     public int costId;
     public String costDateinfo;
 
@@ -20,7 +21,11 @@ public class CostBean extends LitePalSupport {
         this.costDateinfo = costDateinfo;
     }
 
+    public String getCostNote() {
+        return costNote;
+    }
 
+    public void setCostNote(String costNote) { this.costNote = costNote; }
 
     public String getCostTitle() {
         return costTitle;

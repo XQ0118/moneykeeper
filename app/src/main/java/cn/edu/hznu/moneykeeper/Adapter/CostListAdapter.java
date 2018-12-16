@@ -54,6 +54,7 @@ public class CostListAdapter extends BaseAdapter{
             viewHolder.mTvCostTitle = (TextView) convertView.findViewById(R.id.tv_title);
             viewHolder.mTvCostData = (TextView) convertView.findViewById(R.id.tv_date);
             viewHolder.mTvCostMoney = (TextView) convertView.findViewById(R.id.tv_cost);
+            viewHolder.mTvCostNote = (TextView) convertView.findViewById(R.id.tv_note);
             convertView.setTag(viewHolder);
         }else {
             viewHolder = (ViewHolder) convertView.getTag();
@@ -63,6 +64,7 @@ public class CostListAdapter extends BaseAdapter{
         viewHolder.mTvCostTitle.setText(bean.costTitle);
         viewHolder.mTvCostData.setText(bean.costDate);
         viewHolder.mTvCostMoney.setText(bean.costMoney);
+        viewHolder.mTvCostNote.setText(bean.costNote);
         return convertView;
     }
 
@@ -70,6 +72,7 @@ public class CostListAdapter extends BaseAdapter{
         public TextView mTvCostTitle;
         public TextView mTvCostData;
         public TextView mTvCostMoney;
+        public TextView mTvCostNote;
 
     }
 }

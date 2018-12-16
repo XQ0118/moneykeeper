@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="70dp"
-
-    android:background="@drawable/shape_corner">
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_corner"
+    android:orientation="horizontal">
 
         <!--<RelativeLayout-->
             <!--android:layout_width="match_parent"-->
@@ -15,39 +15,76 @@
             <!--android:background="@drawable/shape_corner">-->
         <!--</RelativeLayout>-->
 
-            <TextView
-                android:id="@+id/tv_title"
-                android:layout_width="100dp"
-                android:layout_height="60dp"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="10dp"
-                android:gravity="center"
-                android:singleLine="true"
-                android:textSize="32.5sp"
-                android:ellipsize="marquee"
-                android:text="costTitle"/>
+            <ImageView
+                android:id="@+id/iv_icon"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:background="@color/colorAccent"
+                android:layout_margin="10dp"/>
 
-            <TextView
-                android:id="@+id/tv_date"
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:gravity="center_vertical"
-                android:layout_marginLeft="15dp"
-                android:layout_toRightOf="@id/tv_title"
-                android:textSize="20sp"
-                android:text="costDate"/>
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/title_line"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_toRightOf="@id/iv_icon"
+                    android:layout_marginTop="5dp">
+
+                    <TextView
+                        android:id="@+id/tv_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:textSize="16sp"
+                        android:textColor="@color/white"
+                        android:text="costTitle"/>
+
+                    <TextView
+                        android:id="@+id/tv_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@id/tv_title"
+                        android:textSize="14sp"
+                        android:textColor="@color/white"
+                        android:text="costDate"/>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_note"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginRight="5dp"
+                    android:singleLine="true"
+                    android:ellipsize="marquee"
+                    android:textSize="14sp"
+                    android:textColor="@color/half_black"
+                    android:hint="@string/default_note"
+                    android:textColorHint="@color/half_black"/>
+            </LinearLayout>
+
 
             <TextView
                 android:id="@+id/tv_cost"
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="15dp"
-                android:gravity="center"
-                android:textSize="30sp"
-                android:text="45"/>
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end|center"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="10dp"
+
+                android:textSize="16sp"
+                android:text="4sss5"/>
 
 
 
 
-</RelativeLayout>
+</LinearLayout>
