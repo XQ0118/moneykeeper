@@ -25,7 +25,8 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_marginLeft="5dp">
 
                 <LinearLayout
                     android:id="@+id/title_line"
@@ -33,7 +34,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_toRightOf="@id/iv_icon"
-                    android:layout_marginTop="5dp">
+                    android:layout_marginTop="10dp">
 
                     <TextView
                         android:id="@+id/tv_title"
@@ -60,11 +61,12 @@
                     android:id="@+id/tv_note"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="2.5dp"
                     android:layout_marginEnd="5dp"
                     android:layout_marginRight="5dp"
                     android:singleLine="true"
                     android:ellipsize="marquee"
+                    android:maxEms="11"
                     android:textSize="14sp"
                     android:textColor="@color/half_black"
                     android:hint="@string/default_note"
@@ -79,10 +81,10 @@
                 android:layout_weight="1"
                 android:gravity="end|center"
                 android:layout_gravity="center_vertical"
-                android:layout_marginRight="10dp"
-
+                android:layout_marginRight="5dp"
+                android:maxLines="1"
                 android:textSize="16sp"
-                android:text="4sss5"/>
+                />
 
 
 

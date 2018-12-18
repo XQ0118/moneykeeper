@@ -11,9 +11,15 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import cn.edu.hznu.moneykeeper.Adapter.IconAdapter;
 import cn.edu.hznu.moneykeeper.Util.DateUtils;
@@ -25,19 +31,25 @@ import cn.edu.hznu.moneykeeper.add_fragment.IncomeFragment;
 import static cn.edu.hznu.moneykeeper.Util.DateUtils.FORMAT_M;
 import static cn.edu.hznu.moneykeeper.Util.DateUtils.FORMAT_Y;
 
-public class AddcostActivity extends AppCompatActivity {
-    /*keyboard*/
-//    private EditText mInput;
-    private KeyboardView mKeyboard;
-    private String setText = "";
+public class AddcostActivity extends AppCompatActivity implements View.OnClickListener  {
 
+    /*keyboard*/
+    //计算器
+    protected boolean isDot;
+    protected String num = "0";               //整数部分
+    protected String dotNum = ".00";          //小数部分
+    protected final int MAX_NUM = 99999;    //最大整数
+    protected final int DOT_NUM = 2;          //小数部分最大位数
+    protected int count = 0;
+
+    private TextView moneyTv;
     /*keyboard*/
 
     /*ListView*/
     private List<CostBean> mCostBeanList;
     /*ListView*/
 
-    private EditText title, input_money, note;
+    private EditText title, note;
     private DatePicker datePicker;
     private Button btn_adddata, btnDate ;
 
@@ -82,22 +94,51 @@ public class AddcostActivity extends AppCompatActivity {
         setContentView(R.layout.activity_addcost);
 
         mCostBeanList = new ArrayList<>();
+        /*keyboard*/
+        moneyTv = findViewById(R.id.et_cost_money);
+
+        ImageView tb_clear = findViewById(R.id.tb_note_clear);
+        tb_clear.setOnClickListener(this);
+        TextView tb_done = findViewById(R.id.tb_calc_num_done);
+        tb_done.setOnClickListener(this);
+        RelativeLayout tb_del = findViewById(R.id.tb_calc_num_del);
+        tb_del.setOnClickListener(this);
+        TextView tb_dot = findViewById(R.id.tb_calc_num_dot);
+        tb_dot.setOnClickListener(this);
+        TextView tb_0 = findViewById(R.id.tb_calc_num_0);
+        tb_0.setOnClickListener(this);
+        TextView tb_1 = findViewById(R.id.tb_calc_num_1);
+        tb_1.setOnClickListener(this);
+        TextView tb_2 = findViewById(R.id.tb_calc_num_2);
+        tb_2.setOnClickListener(this);
+        TextView tb_3 = findViewById(R.id.tb_calc_num_3);
+        tb_3.setOnClickListener(this);
+        TextView tb_4 = findViewById(R.id.tb_calc_num_4);
+        tb_4.setOnClickListener(this);
+        TextView tb_5 = findViewById(R.id.tb_calc_num_5);
+        tb_5.setOnClickListener(this);
+        TextView tb_6 = findViewById(R.id.tb_calc_num_6);
+        tb_6.setOnClickListener(this);
+        TextView tb_7 = findViewById(R.id.tb_calc_num_7);
+        tb_7.setOnClickListener(this);
+        TextView tb_8 = findViewById(R.id.tb_calc_num_8);
+        tb_8.setOnClickListener(this);
+        TextView tb_9 = findViewById(R.id.tb_calc_num_9);
+        tb_9.setOnClickListener(this);
+
+        /*keyboard*/
 
         title = (EditText) findViewById(R.id.et_cost_title);
-        input_money = (EditText) findViewById(R.id.et_cost_money);
+        moneyTv = (TextView) findViewById(R.id.et_cost_money);
         note = (EditText) findViewById(R.id.et_cost_note);
         datePicker = (DatePicker) findViewById(R.id.db_cost_date);
         dateTv = (TextView) findViewById(R.id.btnDatePickerDialog);
-        btn_adddata = (Button) findViewById(R.id.btn_add_cost);
 
         //初始化界面组件
         init_date();
         setupWidgets();
         setTitleStatus();
 
-        //初始化软键盘
-        initKeyBoardView();
-        initKeyBoardEvent();
         //初始化当前日期
         initTime();
 
@@ -108,22 +149,22 @@ public class AddcostActivity extends AppCompatActivity {
             }
         });
 
-        btn_adddata.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //将数据存到数据库中
-                CostBean costBean = new CostBean();
-                costBean.setCostTitle(title.getText().toString());
-                costBean.setCostMoney(input_money.getText().toString());
-                costBean.setCostNote(note.getText().toString());
-//                costBean.setCostDate(Integer.parseInt(DateUtils.getCurYear(FORMAT_Y)) + "-" + (datePicker.getMonth()+1)
-//                        + "-" + datePicker.getDayOfMonth());
-                costBean.setCostDate(days);
-                costBean.setCostDateinfo(GetNowTime.getInfoTime());
-                costBean.save();
-                finish();
-            }
-        });
+//        btn_adddata.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //将数据存到数据库中
+//                CostBean costBean = new CostBean();
+//                costBean.setCostTitle(title.getText().toString());
+//                costBean.setCostMoney(input_money.getText().toString());
+//                costBean.setCostNote(note.getText().toString());
+////                costBean.setCostDate(Integer.parseInt(DateUtils.getCurYear(FORMAT_Y)) + "-" + (datePicker.getMonth()+1)
+////                        + "-" + datePicker.getDayOfMonth());
+//                costBean.setCostDate(days);
+//                costBean.setCostDateinfo(GetNowTime.getInfoTime());
+//                costBean.save();
+//                finish();
+//            }
+//        });
     }
 
     //fragment初始化数据
@@ -206,16 +247,7 @@ public class AddcostActivity extends AppCompatActivity {
     }
 
     /*keyboard*/
-    private void initKeyBoardView() {
-        mKeyboard = findViewById(R.id.ky_keyboard);
-        input_money = findViewById(R.id.et_cost_money);
-        input_money.setText(setText);//设置EditText控件的内容
-        input_money.setSelection(setText.length());//将光标移至文字末尾
-    }
 
-    private void initKeyBoardEvent(){
-        KeyBoardUtil keyBoardUtil = new KeyBoardUtil(mKeyboard, input_money).showKeyboard();
-    }
     /*keyboard*/
 
     /**
@@ -252,6 +284,135 @@ public class AddcostActivity extends AppCompatActivity {
             }
         }, mYear, mMonth, mDay).show();
     }
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.tb_calc_num_done://确定
+                doCommit();
+                break;
+            case R.id.tb_calc_num_1:
+                calcMoney(1);
+                break;
+            case R.id.tb_calc_num_2:
+                calcMoney(2);
+                break;
+            case R.id.tb_calc_num_3:
+                calcMoney(3);
+                break;
+            case R.id.tb_calc_num_4:
+                calcMoney(4);
+                break;
+            case R.id.tb_calc_num_5:
+                calcMoney(5);
+                break;
+            case R.id.tb_calc_num_6:
+                calcMoney(6);
+                break;
+            case R.id.tb_calc_num_7:
+                calcMoney(7);
+                break;
+            case R.id.tb_calc_num_8:
+                calcMoney(8);
+                break;
+            case R.id.tb_calc_num_9:
+                calcMoney(9);
+                break;
+            case R.id.tb_calc_num_0:
+                calcMoney(0);
+                break;
+            case R.id.tb_calc_num_dot:
+                if (dotNum.equals(".00")) {
+                    isDot = true;
+                    dotNum = ".";
+                }
+                moneyTv.setText(num + dotNum);
+                break;
+            case R.id.tb_note_clear://清空
+                doClear();
+                break;
+            case R.id.tb_calc_num_del://删除
+                doDelete();
+                break;
+        }
+    }
 
+    public void doCommit() {
+        final SimpleDateFormat sdf = new SimpleDateFormat(" HH:mm:ss");
+
+        if ((num + dotNum).equals("0.00")) {
+            Toast.makeText(this, "唔姆，你还没输入金额", Toast.LENGTH_SHORT).show();
+            return;
+        }else {
+            //将数据存到数据库中
+            CostBean costBean = new CostBean();
+            costBean.setCostTitle(title.getText().toString());
+            costBean.setCostMoney(moneyTv.getText().toString());
+            costBean.setCostNote(note.getText().toString());
+//          costBean.setCostDate(Integer.parseInt(DateUtils.getCurYear(FORMAT_Y)) + "-" + (datePicker.getMonth()+1)
+//          + "-" + datePicker.getDayOfMonth());
+            costBean.setCostDate(days);
+            costBean.setCostDateinfo(GetNowTime.getInfoTime());
+            costBean.save();
+            finish();
+
+        }
+
+    }
+
+    /**
+     * 清空金额
+     */
+    public void doClear() {
+        num = "0";
+        count = 0;
+        dotNum = ".00";
+        isDot = false;
+        moneyTv.setText("0.00");
+    }
+
+    /**
+     * 删除上次输入
+     */
+    public void doDelete() {
+        if (isDot) {
+            if (count > 0) {
+                dotNum = dotNum.substring(0, dotNum.length() - 1);
+                count--;
+            }
+            if (count == 0) {
+                isDot = false;
+                dotNum = ".00";
+            }
+            moneyTv.setText(num + dotNum);
+        } else {
+            if (num.length() > 0)
+                num = num.substring(0, num.length() - 1);
+            if (num.length() == 0)
+                num = "0";
+            moneyTv.setText(num + dotNum);
+        }
+    }
+
+    /**
+     * 计算金额
+     *
+     * @param money
+     */
+    protected void calcMoney(int money) {
+        if (num.equals("0") && money == 0)
+            return;
+        if (isDot) {
+            if (count < DOT_NUM) {
+                count++;
+                dotNum += money;
+                moneyTv.setText(num + dotNum);
+            }
+        } else if (Integer.parseInt(num) < MAX_NUM) {
+            if (num.equals("0"))
+                num = "";
+            num += money;
+            moneyTv.setText(""+num + dotNum);
+        }
+    }
 
 }

@@ -50,7 +50,7 @@ public class DIYKeyboardView extends KeyboardView {
 
             for (Keyboard.Key key : keys) {
                 if (key.codes[0] == -4) {
-                    Drawable dr = getContext().getResources().getDrawable(R.color.red);
+                    Drawable dr = getContext().getResources().getDrawable(R.color.md_black_down);
                     dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
                     dr.draw(canvas);
 

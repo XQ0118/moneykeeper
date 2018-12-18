@@ -14,7 +14,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="113"
+        android:layout_weight="100"
         android:orientation="vertical">
 
         <!--<include-->
@@ -142,18 +142,17 @@
                 android:singleLine="true"
                 android:hint="输入备注" />
 
-            <Button
-                android:id="@+id/btn_add_cost"
+            <ImageView
+                android:id="@+id/tb_note_clear"
+                android:layout_alignParentRight="true"
+                android:paddingRight="15dp"
+                android:paddingLeft="10dp"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/delete"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/db_cost_date"
-                android:background="@drawable/addcost_utils"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:text="确定"
-                android:textSize="15dp"
+                android:layout_height="wrap_content"/>
 
-                />
+
         </LinearLayout>
 
 
@@ -179,43 +178,240 @@
                 android:layout_width="100dp"
                 android:layout_height="30dp"
                 android:background="@drawable/addcost_title"
-                android:textSize="16.5sp"
-                android:layout_marginTop="15dp"
+                android:textSize="15sp"
+                android:layout_marginTop="10dp"
                 android:layout_marginLeft="15dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:gravity="center"
-                android:textColor="@color/white"
-                />
+                android:textColor="@color/white" />
 
-            <EditText
+            <TextView
                 android:id="@+id/et_cost_money"
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="5dp"
-                android:hint="@string/input_cost"
-                android:textColorHint="@color/half_black"
                 android:gravity="end"
                 android:cursorVisible="true"
                 android:textCursorDrawable="@drawable/test_cursor"
-                android:textSize="39.5sp"
-                android:maxLength="7"
-                android:textColor="@color/white"
+                android:textSize="35sp"
+                android:text="0.00"
+                android:maxLength="10"
+                android:textColor="@color/white_pressed"
                 android:background="@color/md_black_down"
+
                 />
+
         </RelativeLayout>
 
-        <cn.edu.hznu.moneykeeper.Util.DIYKeyboardView
-            android:id="@+id/ky_keyboard"
+        <!--<cn.edu.hznu.moneykeeper.Util.DIYKeyboardView-->
+            <!--android:id="@+id/ky_keyboard"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="0dp"-->
+            <!--android:layout_weight="100"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:labelTextSize="50sp"-->
+            <!--android:keyTextSize="50sp"-->
+            <!--android:shadowRadius="0.0" />-->
+        <LinearLayout
+            android:id="@+id/bottom"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="100"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:labelTextSize="50sp"
-            android:keyTextSize="50sp"
-            android:shadowRadius="0.0" />
+            android:layout_weight="113">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/tb_calc_num_1"
+                    android:text="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:textSize="30sp"
+                    android:gravity="center"
+                    android:clickable="true"
+                    android:background="@drawable/bg_ripple"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/tb_calc_num_4"
+                    android:text="4"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:textSize="30sp"
+                    android:background="@drawable/bg_ripple"
+                    android:gravity="center"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/tb_calc_num_7"
+                    android:text="7"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:textSize="30sp"
+                    android:background="@drawable/bg_ripple"
+                    android:gravity="center"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/tb_calc_num_dot"
+                    android:text="."
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:textSize="35sp"
+                    android:gravity="center"
+                    android:background="@drawable/bg_ripple"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_weight="2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="0dp">
+                    <TextView
+                        android:id="@+id/tb_calc_num_2"
+                        android:text="2"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:textSize="30sp"
+                        android:background="@drawable/bg_ripple"
+                        android:gravity="center"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:id="@+id/tb_calc_num_3"
+                        android:text="3"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:textSize="30sp"
+                        android:gravity="center"
+                        android:background="@drawable/bg_ripple"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="0dp">
+                    <TextView
+                        android:id="@+id/tb_calc_num_5"
+                        android:text="5"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:textSize="30sp"
+                        android:background="@drawable/bg_ripple"
+                        android:gravity="center"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:id="@+id/tb_calc_num_6"
+                        android:text="6"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:textSize="30sp"
+                        android:gravity="center"
+                        android:background="@drawable/bg_ripple"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="0dp">
+                    <TextView
+                        android:id="@+id/tb_calc_num_8"
+                        android:text="8"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:textSize="30sp"
+                        android:background="@drawable/bg_ripple"
+                        android:gravity="center"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:id="@+id/tb_calc_num_9"
+                        android:text="9"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:textSize="30sp"
+                        android:gravity="center"
+                        android:background="@drawable/bg_ripple"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="0dp">
+                    <TextView
+                        android:id="@+id/tb_calc_num_0"
+                        android:text="0"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:textSize="30sp"
+                        android:gravity="center"
+                        android:background="@drawable/bg_ripple"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+                <RelativeLayout
+                    android:id="@+id/tb_calc_num_del"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:background="@drawable/bg_ripple">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:src="@mipmap/delete"
+                        />
+                </RelativeLayout>
+                <TextView
+                    android:id="@+id/tb_calc_num_done"
+                    android:text="确定"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:textSize="20sp"
+                    android:gravity="center"
+                    android:background="@drawable/bg_radius_click"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+        </LinearLayout>
+
 
     </LinearLayout>
 

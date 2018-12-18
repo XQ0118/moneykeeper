@@ -56,11 +56,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        //初始化数据库
-        LitePal.initialize(MainActivity.this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.home_toolbar);
         setSupportActionBar(toolbar);
+        //初始化数据库
+        LitePal.initialize(MainActivity.this);
 
         //设置HeadViewPager
         setmViewPager();

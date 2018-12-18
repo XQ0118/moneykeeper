@@ -25,8 +25,8 @@
         <Key android:codes="55" android:keyLabel="7" android:keyEdgeFlags="left" />
         <Key android:codes="56" android:keyLabel="8" />
         <Key android:codes="57" android:keyLabel="9" />
-        <Key android:id="@+id/btn_commit_cost" android:codes="-4" android:keyHeight="140sp"
-            android:keyLabel="确定" />
+        <Key  android:codes="-4" android:keyHeight="140sp"
+             />
     </Row>
     <Row>
         <Key android:keyWidth="37.5%p" android:codes="46" android:keyLabel="." />

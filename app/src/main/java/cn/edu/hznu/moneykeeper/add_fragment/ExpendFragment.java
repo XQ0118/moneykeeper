@@ -72,24 +72,27 @@ public class ExpendFragment extends Fragment {
         gridViewicon = (GridView) rootView.findViewById(R.id.gridview);
         // icon
         icon = new ArrayList<Integer>();
-        icon.add(R.mipmap.icon_1);
-        icon.add(R.mipmap.icon_1);
-        icon.add(R.mipmap.icon_1);
-        icon.add(R.mipmap.icon_1);
-        icon.add(R.mipmap.icon_1);
-        icon.add(R.mipmap.icon_1);
-        icon.add(R.mipmap.icon_1);
-        icon.add(R.mipmap.icon_1);
+        icon.add(R.mipmap.type_eat);
+        icon.add(R.mipmap.type_calendar);
+        icon.add(R.mipmap.type_3c);
+        icon.add(R.mipmap.type_candy);
+        icon.add(R.mipmap.type_pill);
+        icon.add(R.mipmap.type_movie);
+        icon.add(R.mipmap.type_wallet);
+        icon.add(R.mipmap.type_unexpected_income);
+        icon.add(R.mipmap.type_clothes);
+
         //title
         titles = new ArrayList<>();
         titles.add("餐饮");
+        titles.add("日用品");
         titles.add("电子产品");
-        titles.add("餐饮");
-        titles.add("餐饮");
-        titles.add("餐饮");
-        titles.add("餐饮");
-        titles.add("餐饮");
-        titles.add("餐饮");
+        titles.add("零食");
+        titles.add("医疗");
+        titles.add("娱乐");
+        titles.add("还款");
+        titles.add("其他");
+        titles.add("服饰");
         // 适配器
         iconAdapter = new IconAdapter(getActivity(), icon, titles);
         // 添加控件适配器
