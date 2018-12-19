@@ -27,6 +27,8 @@ import cn.edu.hznu.moneykeeper.R;
 
 public class ExpendFragment extends Fragment {
 
+    private int mCurrentPosition;
+
     private View rootView;
 
     // ViewPager icon
@@ -64,6 +66,9 @@ public class ExpendFragment extends Fragment {
         /* 初始化icon */
         initIcon(rootView);
     }
+
+
+
 
     /*
      * 初始化icon
@@ -105,12 +110,19 @@ public class ExpendFragment extends Fragment {
                                     int position, long id) {
                 Toast.makeText(getActivity(), "你选择了" + (position + 1) + " 号图片", Toast.LENGTH_SHORT).show();
 
-                EditText title_edit = (EditText) getActivity().findViewById(R.id.et_cost_title);
+                TextView title_edit = (TextView) getActivity().findViewById(R.id.et_cost_title);
                 TextView textView = (TextView) view.findViewById(R.id.gridview_expend_item_tv);
                 String message = textView.getText().toString();
                 title_edit.setText(message);
+
+//                mCurrentPosition = (Integer) view.getTag();
+
             }
         });
+    }
+
+    private int getmCurrentPosition(){
+        return mCurrentPosition;
     }
 
 

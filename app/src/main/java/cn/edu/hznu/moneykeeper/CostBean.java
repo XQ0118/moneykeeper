@@ -1,5 +1,7 @@
 package cn.edu.hznu.moneykeeper;
 
+import android.widget.ImageView;
+
 import org.litepal.crud.LitePalSupport;
 
 
@@ -12,6 +14,15 @@ public class CostBean extends LitePalSupport {
     public String costNote;
     public int costId;
     public String costDateinfo;
+    public int costImg;
+
+    public int getCostImg() {
+        return costImg;
+    }
+
+    public void setCostImg(int costImg) {
+        this.costImg = costImg;
+    }
 
     public String getCostDateinfo() {
         return costDateinfo;

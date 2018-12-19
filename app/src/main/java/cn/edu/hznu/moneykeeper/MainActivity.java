@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
         import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
         import android.support.v7.widget.Toolbar;
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private HeadPagerAdapter mPagerAdapter;
     private List<ImageView> mDots;//定义一个集合存储2个dot
     private int oldPosition;//记录当前点的位置。
+    private ImageButton btn_chart;
 
     /*CostBeanlist*/
     private List<CostBean> mCostBeanList;
@@ -45,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     /*ListView*/
 
 
-
+    private View mFooter; //footer
     private FloatingActionButton fab;
     private Intent intent;
     private CostListAdapter adapter;
@@ -97,6 +99,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //footer
+        mFooter = LayoutInflater.from(MainActivity.this).inflate(R.layout.my_footer, null);//加载footer布局
+        costList.addFooterView(mFooter, "",false);
+
+        btn_chart = (ImageButton) findViewById(R.id.title_chart);
+        btn_chart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent  intent = new Intent(MainActivity.this, ChartActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     //初始化状态栏
@@ -153,6 +167,7 @@ public class MainActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
         costList.setAdapter(adapter);
 
+
         //长按list_item删除
         costList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -183,6 +198,7 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
     }
 
     //重置MainActivity页面内容

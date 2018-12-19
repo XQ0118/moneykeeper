@@ -24,7 +24,6 @@ import java.util.List;
 import cn.edu.hznu.moneykeeper.Adapter.IconAdapter;
 import cn.edu.hznu.moneykeeper.Util.DateUtils;
 import cn.edu.hznu.moneykeeper.Util.GetNowTime;
-import cn.edu.hznu.moneykeeper.Util.KeyBoardUtil;
 import cn.edu.hznu.moneykeeper.add_fragment.ExpendFragment;
 import cn.edu.hznu.moneykeeper.add_fragment.IncomeFragment;
 
@@ -49,9 +48,11 @@ public class AddcostActivity extends AppCompatActivity implements View.OnClickLi
     private List<CostBean> mCostBeanList;
     /*ListView*/
 
-    private EditText title, note;
-    private DatePicker datePicker;
-    private Button btn_adddata, btnDate ;
+    //数据库交互
+    private EditText  cost_note;
+    private TextView cost_title;
+    private ImageView cost_icon;
+
 
     //选择时间
     protected int mYear;
@@ -75,6 +76,7 @@ public class AddcostActivity extends AppCompatActivity implements View.OnClickLi
     //记录上一次点击后的分类
     private GridView gridViewtitle;
     public String lasttitle;
+    public int mCurrentPosition  = 0;
     private IconAdapter iconAdapter;
 
     protected void initTime(){
@@ -95,7 +97,6 @@ public class AddcostActivity extends AppCompatActivity implements View.OnClickLi
 
         mCostBeanList = new ArrayList<>();
         /*keyboard*/
-        moneyTv = findViewById(R.id.et_cost_money);
 
         ImageView tb_clear = findViewById(R.id.tb_note_clear);
         tb_clear.setOnClickListener(this);
@@ -128,11 +129,12 @@ public class AddcostActivity extends AppCompatActivity implements View.OnClickLi
 
         /*keyboard*/
 
-        title = (EditText) findViewById(R.id.et_cost_title);
+        cost_title = (TextView) findViewById(R.id.et_cost_title);
         moneyTv = (TextView) findViewById(R.id.et_cost_money);
-        note = (EditText) findViewById(R.id.et_cost_note);
-        datePicker = (DatePicker) findViewById(R.id.db_cost_date);
+        cost_note = (EditText) findViewById(R.id.et_cost_note);
         dateTv = (TextView) findViewById(R.id.btnDatePickerDialog);
+        moneyTv = findViewById(R.id.et_cost_money);
+
 
         //初始化界面组件
         init_date();
@@ -154,9 +156,9 @@ public class AddcostActivity extends AppCompatActivity implements View.OnClickLi
 //            public void onClick(View v) {
 //                //将数据存到数据库中
 //                CostBean costBean = new CostBean();
-//                costBean.setCostTitle(title.getText().toString());
-//                costBean.setCostMoney(input_money.getText().toString());
-//                costBean.setCostNote(note.getText().toString());
+//                costBean.setCostTitle(cost_title.getText().toString());
+//                costBean.setCostMoney(moneyTv.getText().toString());
+//                costBean.setCostNote(cost_note.getText().toString());
 ////                costBean.setCostDate(Integer.parseInt(DateUtils.getCurYear(FORMAT_Y)) + "-" + (datePicker.getMonth()+1)
 ////                        + "-" + datePicker.getDayOfMonth());
 //                costBean.setCostDate(days);
@@ -239,16 +241,13 @@ public class AddcostActivity extends AppCompatActivity implements View.OnClickLi
     protected void setTitleStatus() {
 
         //设置选择的分类
-        EditText title_edit = (EditText) findViewById(R.id.et_cost_title);
+        TextView title_edit = (TextView) findViewById(R.id.et_cost_title);
 
         lasttitle = "餐饮";
         title_edit.setText(lasttitle);
 
     }
 
-    /*keyboard*/
-
-    /*keyboard*/
 
     /**
      * 显示日期选择器
@@ -345,19 +344,19 @@ public class AddcostActivity extends AppCompatActivity implements View.OnClickLi
         }else {
             //将数据存到数据库中
             CostBean costBean = new CostBean();
-            costBean.setCostTitle(title.getText().toString());
+            costBean.setCostTitle(cost_title.getText().toString());
             costBean.setCostMoney(moneyTv.getText().toString());
-            costBean.setCostNote(note.getText().toString());
-//          costBean.setCostDate(Integer.parseInt(DateUtils.getCurYear(FORMAT_Y)) + "-" + (datePicker.getMonth()+1)
-//          + "-" + datePicker.getDayOfMonth());
+            costBean.setCostNote(cost_note.getText().toString());
             costBean.setCostDate(days);
+            costBean.setCostImg(0);
             costBean.setCostDateinfo(GetNowTime.getInfoTime());
             costBean.save();
             finish();
 
         }
-
     }
+
+
 
     /**
      * 清空金额

@@ -24,6 +24,7 @@ http://www.google.com/design/spec/style/color.html#color-ui-color-palette -->
     <color name="pink_pressed">#ec407a</color>
     <color name="blue_semi_transparent">#805677fc</color>
     <color name="blue_semi_transparent_pressed">#80738ffe</color>
+    <color name="colorTextHint">#737373</color>
 
 <!--reds-->
 <color name="md_red_50">#FFEBEE</color>

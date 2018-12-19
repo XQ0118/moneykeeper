@@ -14,8 +14,8 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center"
-            android:layout_marginTop="25dp"
-            android:layout_marginBottom="20dp">
+            android:layout_marginTop="22.5dp"
+            android:layout_marginBottom="15dp">
             <ImageView
                 android:id="@+id/gridview_expend_item_iv"
                 android:layout_width="62dp"
@@ -29,14 +29,6 @@
                 android:textColor="@color/white"/>
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/ivCheck"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:background="@mipmap/ic_check"
-            android:visibility="gone"  />
 
     </RelativeLayout>
 

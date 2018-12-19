@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import java.util.List;
 
 import cn.edu.hznu.moneykeeper.CostBean;
 import cn.edu.hznu.moneykeeper.R;
+import cn.edu.hznu.moneykeeper.Util.InsertImage;
 
 import static org.litepal.LitePalApplication.getContext;
 
@@ -55,6 +57,7 @@ public class CostListAdapter extends BaseAdapter{
             viewHolder.mTvCostData = (TextView) convertView.findViewById(R.id.tv_date);
             viewHolder.mTvCostMoney = (TextView) convertView.findViewById(R.id.tv_cost);
             viewHolder.mTvCostNote = (TextView) convertView.findViewById(R.id.tv_note);
+            viewHolder.mIvCostImg = (ImageView) convertView.findViewById(R.id.iv_icon);
             convertView.setTag(viewHolder);
         }else {
             viewHolder = (ViewHolder) convertView.getTag();
@@ -65,6 +68,7 @@ public class CostListAdapter extends BaseAdapter{
         viewHolder.mTvCostData.setText(bean.costDate);
         viewHolder.mTvCostMoney.setText(bean.costMoney);
         viewHolder.mTvCostNote.setText(bean.costNote);
+        viewHolder.mIvCostImg.setImageResource(InsertImage.insertIcon(bean.costImg));
         return convertView;
     }
 
@@ -73,6 +77,7 @@ public class CostListAdapter extends BaseAdapter{
         public TextView mTvCostData;
         public TextView mTvCostMoney;
         public TextView mTvCostNote;
+        public ImageView mIvCostImg;
 
     }
 }

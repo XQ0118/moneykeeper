@@ -69,7 +69,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
-        android:src="@drawable/ic_add_white_64dp"
+        android:src="@mipmap/ic_add_white_64dp"
         android:layout_margin="25dp"
         app:fabSize="normal"
         app:elevation="5dp"

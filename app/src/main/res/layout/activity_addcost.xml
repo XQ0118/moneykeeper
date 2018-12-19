@@ -152,6 +152,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
+            <TextView
+                android:id="@+id/icon_position"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="@color/white"/>
 
         </LinearLayout>
 
@@ -173,7 +179,7 @@
             android:layout_height="wrap_content"
             android:background="@color/md_black_down">
 
-            <EditText
+            <TextView
                 android:id="@+id/et_cost_title"
                 android:layout_width="100dp"
                 android:layout_height="30dp"

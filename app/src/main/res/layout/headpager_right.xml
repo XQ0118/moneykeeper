@@ -1,13 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="这是一个Button" />
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
 
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:id="@+id/left_part_income"
+        android:layout_width="100dp"
+        android:layout_height="116dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_gravity="center">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="本月收入 ( ¥ )"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:layout_marginTop="20dp"
+            />
+        <TextView
+            android:id="@+id/expend_money_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="34.00"
+            android:textColor="@color/white"
+            android:textSize="28sp"
+            android:layout_marginTop="10dp"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="1dip"
+        android:layout_height="50dp"
+        android:background="#fff"
+        android:layout_gravity="center_vertical"/>
+
+    <LinearLayout
+        android:id="@+id/right_part_income"
+        android:layout_width="100dp"
+        android:layout_height="116dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_gravity="center">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="剩余预算 ( ¥ )"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:layout_marginTop="20dp"
+            />
+        <TextView
+            android:id="@+id/reside_money_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="134.00"
+            android:textColor="@color/white"
+            android:textSize="28sp"
+            android:layout_marginTop="10dp"/>
+
+    </LinearLayout>
+
+</LinearLayout>
