@@ -15,6 +15,15 @@ public class CostBean extends LitePalSupport {
     public int costId;
     public String costDateinfo;
     public int costImg;
+    public int colorType;
+
+    public void setColorType(int colorType) {
+        this.colorType = colorType;
+    }
+
+    public int getColorType() {
+        return colorType;
+    }
 
     public int getCostImg() {
         return costImg;

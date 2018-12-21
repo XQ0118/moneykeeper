@@ -45,7 +45,7 @@ public class IconAdapter extends BaseAdapter {
         return data.get(position);
     }
 
-    public String getTitleItem(int position) {
+    public Object getTitleItem(int position) {
         return title.get(position);
     }
     @Override

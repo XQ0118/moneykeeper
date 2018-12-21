@@ -1,5 +1,6 @@
 package cn.edu.hznu.moneykeeper.add_fragment;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -28,7 +29,7 @@ import cn.edu.hznu.moneykeeper.R;
 public class ExpendFragment extends Fragment {
 
     private int mCurrentPosition;
-
+    public static int expend_chosenPos;
     private View rootView;
 
     // ViewPager icon
@@ -36,6 +37,8 @@ public class ExpendFragment extends Fragment {
     private List<String> titles;
     private GridView gridViewicon;
     private BaseAdapter iconAdapter;
+
+
 
 
     @Override
@@ -66,9 +69,6 @@ public class ExpendFragment extends Fragment {
         /* 初始化icon */
         initIcon(rootView);
     }
-
-
-
 
     /*
      * 初始化icon
@@ -109,6 +109,7 @@ public class ExpendFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 Toast.makeText(getActivity(), "你选择了" + (position + 1) + " 号图片", Toast.LENGTH_SHORT).show();
+                ExpendFragment.expend_chosenPos = position;
 
                 TextView title_edit = (TextView) getActivity().findViewById(R.id.et_cost_title);
                 TextView textView = (TextView) view.findViewById(R.id.gridview_expend_item_tv);

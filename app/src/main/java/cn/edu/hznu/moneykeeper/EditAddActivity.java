@@ -1,15 +1,13 @@
 package cn.edu.hznu.moneykeeper;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
-import android.graphics.Color;
-import android.inputmethodservice.KeyboardView;
-import android.os.Bundle;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.GridView;
@@ -20,10 +18,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.litepal.LitePal;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+
 import cn.edu.hznu.moneykeeper.Adapter.IconAdapter;
 import cn.edu.hznu.moneykeeper.Util.DateUtils;
 import cn.edu.hznu.moneykeeper.Util.GetNowTime;
@@ -34,7 +34,7 @@ import static cn.edu.hznu.moneykeeper.Util.DateUtils.FORMAT_M;
 import static cn.edu.hznu.moneykeeper.Util.DateUtils.FORMAT_Y;
 import static cn.edu.hznu.moneykeeper.Util.InsertImage.insertIconTitle;
 
-public class AddcostActivity extends AppCompatActivity implements View.OnClickListener  {
+public class EditAddActivity extends AppCompatActivity implements View.OnClickListener{
 
     /*keyboard*/
     //计算器
@@ -53,7 +53,7 @@ public class AddcostActivity extends AppCompatActivity implements View.OnClickLi
     /*ListView*/
 
     //数据库交互
-    private EditText  cost_note;
+    private EditText cost_note;
     private TextView cost_title;
     private ImageView cost_icon;
 
@@ -73,8 +73,6 @@ public class AddcostActivity extends AppCompatActivity implements View.OnClickLi
     private IncomeFragment mIncomeFragment;
 
     private android.support.v4.app.FragmentTransaction transaction;
-
-//    private Integer flag = 0;
     private boolean flag = false;
 
     //设置默认选择第一个分类
@@ -82,10 +80,10 @@ public class AddcostActivity extends AppCompatActivity implements View.OnClickLi
     private List<String> titles;
     //记录上一次点击后的分类
     private GridView gridViewtitle;
-    public String lasttitle;
-    private GridView gridViewicon;
-    private BaseAdapter iconAdapter;
-
+    public int mCurrentPosition  = 0;
+    private IconAdapter iconAdapter;
+    public String last_title, last_date, last_money, last_note, last_dateinfo, last_colortype;
+    public int last_type;
 
     protected void initTime(){
         //设置日期选择器初始日期
@@ -101,8 +99,7 @@ public class AddcostActivity extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         //控制弹出的软键盘不上布局上移
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-        setContentView(R.layout.activity_addcost);
-
+        setContentView(R.layout.activity_edit_add);
         //数据库数据列表
         mCostBeanList = new ArrayList<>();
 
@@ -145,14 +142,18 @@ public class AddcostActivity extends AppCompatActivity implements View.OnClickLi
         /*keyboard*/
 
         //初始化界面组件
-        setTitleExpend();
+        setTitleStatus();
 
-        //1是支出，0是收入;默认支出页面
-        //初始化fragment数据;GridView页面
-        init_date();
-        //设置RadioGroup选中事件
-        setupWidgets();
-
+        //1是支出，0是收入
+        if(last_type == 1){
+            //初始化fragment数据;GridView页面
+            init_date();
+            //设置RadioGroup选中事件
+            setupWidgets();
+        }else {
+            init_date2();
+            setupWidgets();
+        }
         //初始化当前日期
         initTime();
         //点击事件TextView打开事件选择器
@@ -176,7 +177,7 @@ public class AddcostActivity extends AppCompatActivity implements View.OnClickLi
         transaction.commit();
         RadioButton button_right = findViewById(R.id.rbLeft);
         button_right.setChecked(true);
-        setTitleExpend();
+
     }
     //收入fragment初始化数据
     private void init_date2(){
@@ -190,7 +191,7 @@ public class AddcostActivity extends AppCompatActivity implements View.OnClickLi
         transaction.commit();
         RadioButton button_right = findViewById(R.id.rbRight);
         button_right.setChecked(true);
-        setTitleIncome();
+
     }
 
     //设置RadioGroup选中事件
@@ -202,10 +203,10 @@ public class AddcostActivity extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 // TODO Auto-generated method stub
+
                 switch (checkedId) {
                     case R.id.rbLeft:
                         init_date(); //支出
-                        flag = false;
                         Log.v(TAG, "setupWidgets():radio0 clicked");
                         if (null == mExpendFragment) {
                             mExpendFragment = new ExpendFragment();
@@ -218,7 +219,6 @@ public class AddcostActivity extends AppCompatActivity implements View.OnClickLi
 
                     case R.id.rbRight:
                         init_date2();  //收入
-                        flag = true;
                         Log.v(TAG, "setupWidgets():radio2 clicked");
 
                         if (null == mIncomeFragment) {
@@ -254,18 +254,27 @@ public class AddcostActivity extends AppCompatActivity implements View.OnClickLi
     /**
      * 设置状态
      */
-    protected void setTitleExpend() {
-        //设置支出选择的title餐饮
+    protected void setTitleStatus() {
+
+        //设置编辑选择的分类,时间，备注，金额
         TextView title_edit = (TextView) findViewById(R.id.et_cost_title);
-        lasttitle = insertIconTitle(0);
-        title_edit.setText(lasttitle);
+        TextView date_edit = (TextView) findViewById(R.id.btnDatePickerDialog);
+        EditText note_edit = (EditText) findViewById(R.id.et_cost_note);
+        TextView money_edit = (TextView) findViewById(R.id.et_cost_money);
+        Intent intent = getIntent();
+        last_title = intent.getStringExtra("title_edit");
+        last_date = intent.getStringExtra("date_edit");
+        last_note = intent.getStringExtra("note_edit");
+        last_money = intent.getStringExtra("money_edit");
+        last_dateinfo = intent.getStringExtra("dateinfo_edit");
+        last_colortype = intent.getStringExtra("colortype_edit");
+        last_type = Integer.parseInt(last_colortype);
+        title_edit.setText(last_title);
+        date_edit.setText(last_date);
+        note_edit.setText(last_note);
+        money_edit.setText(last_money);
     }
-    protected void setTitleIncome() {
-        //设置收入选择的title薪资
-        TextView title_edit = (TextView) findViewById(R.id.et_cost_title);
-        lasttitle = insertIconTitle(100);
-        title_edit.setText(lasttitle);
-    }
+
 
     /**
      * 显示日期选择器
@@ -354,15 +363,15 @@ public class AddcostActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     public void doCommit() {
-
         if ((num+dotNum).equals("0.00")) {
-            Toast.makeText(this, "唔姆，你还没输入金额", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "唔姆，你还没修改金额", Toast.LENGTH_SHORT).show();
             return;
         }else {
+            updateOldItem();
             saveDataToLite();
+
         }
     }
-
 
     public void saveDataToLite(){
         //将数据存到数据库中
@@ -386,6 +395,14 @@ public class AddcostActivity extends AppCompatActivity implements View.OnClickLi
         finish();
     }
 
+    public void updateOldItem(){
+
+        //删除选中的数据
+//      List<CostBean> dateinfo = LitePal.where("costDateinfo = ?",last_dateinfo)
+//                .find(CostBean.class);
+        LitePal.deleteAll(CostBean.class,"costDateinfo = ?", last_dateinfo);
+        Toast.makeText(EditAddActivity.this,"更新成功",Toast.LENGTH_SHORT).show();
+    }
 
     /**
      * 清空金额
@@ -411,7 +428,7 @@ public class AddcostActivity extends AppCompatActivity implements View.OnClickLi
                 isDot = false;
                 dotNum = ".00";
             }
-            moneyTv.setText(num );
+            moneyTv.setText(num + dotNum);
         } else {
             if (num.length() > 0)
                 num = num.substring(0, num.length() - 1);

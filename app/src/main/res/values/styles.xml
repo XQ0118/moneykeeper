@@ -13,8 +13,6 @@
         <item name="android:windowContentOverlay">@null</item>
     </style>
     <!--toolbar-->
-
-
     <style name="menu_labels_style">
         <item name="android:background">@drawable/fab_label_background</item>
         <item name="android:textColor">@color/white</item>
@@ -23,6 +21,32 @@
     <!-- Base application theme. -->
     <style name="AddcostActivity" parent="Base.Theme.AppCompat">
         <!-- Customize your theme here. -->
+
+
+        <item name="colorPrimary">@color/md_black_1000</item>
+        <item name="colorPrimaryDark">@color/md_black_1000</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/md_black_1000</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <!-- Base application theme. -->
+    <style name="ChartActivity" parent="Base.Theme.AppCompat">
+        <!-- Customize your theme here. -->
+
+
+        <item name="colorPrimary">@color/md_black_1000</item>
+        <item name="colorPrimaryDark">@color/md_black_1000</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/md_black_1000</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <!-- Base application theme. -->
+    <style name="EditAddActivity" parent="Base.Theme.AppCompat">
+        <!-- Customize your theme here. -->
+
+
         <item name="colorPrimary">@color/md_black_1000</item>
         <item name="colorPrimaryDark">@color/md_black_1000</item>
         <item name="colorAccent">@color/colorAccent</item>

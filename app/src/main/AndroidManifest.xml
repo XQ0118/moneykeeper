@@ -10,21 +10,35 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Base">
-        <activity android:name=".MainActivity"
-                    android:screenOrientation="portrait">
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".AddcostActivity"
+            android:label="@string/add_activity_name"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AddcostActivity"> <!-- 返回上一个活动 -->
 
-        <activity android:name=".AddcostActivity"
-                  android:label="@string/add_activity_name"
-                  android:theme="@style/AddcostActivity"
-                  android:screenOrientation="portrait"
-                  android:parentActivityName=".MainActivity" >  <!--返回上一个活动-->
+        </activity>
+        <activity
+            android:name=".ChartActivity"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ChartActivity"> <!-- 返回上一个活动 -->
 
+        </activity>
+        <activity android:name=".EditAddActivity"
+            android:label="@string/add_activity_name"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/EditAddActivity"> <!-- 返回上一个活动 -->
 
         </activity>
     </application>

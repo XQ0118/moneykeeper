@@ -20,11 +20,13 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
         import android.support.v7.widget.Toolbar;
+import android.widget.Toast;
 
-        import org.litepal.LitePal;
+import org.litepal.LitePal;
 
         import java.util.ArrayList;
-        import java.util.List;
+import java.util.Collections;
+import java.util.List;
 
         import cn.edu.hznu.moneykeeper.Adapter.CostListAdapter;
 import cn.edu.hznu.moneykeeper.Adapter.HeadPagerAdapter;
@@ -38,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
     private List<ImageView> mDots;//定义一个集合存储2个dot
     private int oldPosition;//记录当前点的位置。
     private ImageButton btn_chart;
+    private String lasttitle = null;
+
 
     /*CostBeanlist*/
     private List<CostBean> mCostBeanList;
@@ -166,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
         adapter = new CostListAdapter(MainActivity.this, mCostBeanList);
         adapter.notifyDataSetChanged();
         costList.setAdapter(adapter);
-
+        Collections.reverse(mCostBeanList);
 
         //长按list_item删除
         costList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -175,7 +179,6 @@ public class MainActivity extends AppCompatActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                 LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
                 View viewDialog = inflater.inflate(R.layout.my_dialog, null);
-
 
                 builder.setView(viewDialog);
                 builder.setPositiveButton("删除", new DialogInterface.OnClickListener() {
@@ -195,10 +198,49 @@ public class MainActivity extends AppCompatActivity {
                 });
                 builder.setNegativeButton("取消", null);
                 builder.create().show();
-                return false;
+                return true;
             }
         });
+        //短按list_item进入编辑页面
+        costList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(MainActivity.this, EditAddActivity.class);
+                CostBean id_edit = mCostBeanList.get(position);
+                List<CostBean> costBeanList = LitePal.where("costDateinfo = ?",String.valueOf(id_edit.getCostDateinfo()))
+                        .find(CostBean.class);
+                String title_edit = null;
+                String date_edit = null;
+                String note_edit = null;
+                String money_edit = null;
+                String dateinfo_edit = null;
+                int colortype_edit = 0;
 
+                for(CostBean costBean: costBeanList){
+                    title_edit = costBean.getCostTitle();
+                    date_edit = costBean.getCostDate();
+                    note_edit = costBean.getCostNote();
+                    money_edit = costBean.getCostMoney();
+                    dateinfo_edit = costBean.getCostDateinfo();
+                    colortype_edit = costBean.getColorType();
+                    Log.d("test",title_edit);
+                    Log.d("test",date_edit);
+                    Log.d("test",note_edit);
+                    Log.d("test",money_edit);
+                    Log.d("test",dateinfo_edit);
+                }
+
+//                Toast.makeText(MainActivity.this, title_edit, Toast.LENGTH_LONG).show();
+                intent.putExtra("title_edit",title_edit);
+                intent.putExtra("date_edit",date_edit);
+                intent.putExtra("note_edit",note_edit);
+                intent.putExtra("money_edit",money_edit);
+                intent.putExtra("dateinfo_edit",dateinfo_edit);
+                intent.putExtra("colortype_edit", colortype_edit+"");
+                startActivity(intent);
+
+            }
+        });
     }
 
     //重置MainActivity页面内容

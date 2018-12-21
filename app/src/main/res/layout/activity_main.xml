@@ -50,6 +50,7 @@
     </android.support.design.widget.AppBarLayout>
 
     <ListView
+        android:paddingHorizontal="5dp"
         android:id="@+id/lv_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -60,7 +61,8 @@
         android:footerDividersEnabled="false"
         android:layout_margin="10dp"
         android:dividerHeight="10dp"
-        >
+        android:fastScrollEnabled="false"
+        android:scrollbars="none">
 
     </ListView>
 

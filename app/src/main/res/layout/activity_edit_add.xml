@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddcostActivity"
+    tools:context=".EditAddActivity"
     android:orientation="vertical"
     android:gravity="center"
     android:focusable="true"
@@ -18,8 +18,8 @@
         android:orientation="vertical">
 
         <!--<include-->
-            <!--android:id="@+id/typeChoose"-->
-            <!--layout="@layout/layout_twe_choose" />-->
+        <!--android:id="@+id/typeChoose"-->
+        <!--layout="@layout/layout_twe_choose" />-->
 
         <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
@@ -182,15 +182,15 @@
         </RelativeLayout>
 
         <!--<cn.edu.hznu.moneykeeper.Util.DIYKeyboardView-->
-            <!--android:id="@+id/ky_keyboard"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="0dp"-->
-            <!--android:layout_weight="100"-->
-            <!--android:layout_alignParentBottom="true"-->
-            <!--android:layout_centerHorizontal="true"-->
-            <!--android:labelTextSize="50sp"-->
-            <!--android:keyTextSize="50sp"-->
-            <!--android:shadowRadius="0.0" />-->
+        <!--android:id="@+id/ky_keyboard"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="100"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:labelTextSize="50sp"-->
+        <!--android:keyTextSize="50sp"-->
+        <!--android:shadowRadius="0.0" />-->
         <LinearLayout
             android:id="@+id/bottom"
             android:orientation="horizontal"

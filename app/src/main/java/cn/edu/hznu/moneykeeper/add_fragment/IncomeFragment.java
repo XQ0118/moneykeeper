@@ -21,7 +21,7 @@ import cn.edu.hznu.moneykeeper.R;
 public class IncomeFragment extends Fragment {
 
     private int mCurrentPosition;
-
+    public static int income_chosenPos;
     private View rootView;
 
     // ViewPager icon
@@ -87,7 +87,7 @@ public class IncomeFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 Toast.makeText(getActivity(), "你选择了" + (position + 1) + " 号图片", Toast.LENGTH_SHORT).show();
-
+                IncomeFragment.income_chosenPos = position+100;
                 TextView title_edit = (TextView) getActivity().findViewById(R.id.et_cost_title);
                 TextView textView = (TextView) view.findViewById(R.id.gridview_expend_item_tv);
                 String message = textView.getText().toString();

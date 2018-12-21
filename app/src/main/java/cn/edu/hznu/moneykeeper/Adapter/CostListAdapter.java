@@ -1,6 +1,7 @@
 package cn.edu.hznu.moneykeeper.Adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ public class CostListAdapter extends BaseAdapter{
     private List<CostBean> mList;
     private Context mContext;
     private LayoutInflater mLayoutInflater;
+
 
     public CostListAdapter(Context context, List<CostBean> list){
         this.mContext = context;
@@ -55,9 +57,9 @@ public class CostListAdapter extends BaseAdapter{
             //convertView = mLayoutInflater.inflate(R.layout.list_item, null);
             viewHolder.mTvCostTitle = (TextView) convertView.findViewById(R.id.tv_title);
             viewHolder.mTvCostData = (TextView) convertView.findViewById(R.id.tv_date);
-            viewHolder.mTvCostMoney = (TextView) convertView.findViewById(R.id.tv_cost);
             viewHolder.mTvCostNote = (TextView) convertView.findViewById(R.id.tv_note);
             viewHolder.mIvCostImg = (ImageView) convertView.findViewById(R.id.iv_icon);
+            viewHolder.mTvCostMoney = (TextView) convertView.findViewById(R.id.tv_cost);
             convertView.setTag(viewHolder);
         }else {
             viewHolder = (ViewHolder) convertView.getTag();
@@ -66,9 +68,19 @@ public class CostListAdapter extends BaseAdapter{
         CostBean bean = mList.get(position);
         viewHolder.mTvCostTitle.setText(bean.costTitle);
         viewHolder.mTvCostData.setText(bean.costDate);
-        viewHolder.mTvCostMoney.setText(bean.costMoney);
         viewHolder.mTvCostNote.setText(bean.costNote);
         viewHolder.mIvCostImg.setImageResource(InsertImage.insertIcon(bean.costImg));
+        //默认false是支出，true是收入; 1是支出的红色，0是收入的绿色
+        if( bean.getColorType() == 1){
+            //red
+            viewHolder.mTvCostMoney.setTextColor(Color.parseColor("#FF6F6F"));
+            viewHolder.mTvCostMoney.setText("-"+bean.costMoney);
+        }else {
+            //green
+            viewHolder.mTvCostMoney.setTextColor(Color.parseColor("#02AE7C"));
+            viewHolder.mTvCostMoney.setText("+"+bean.costMoney);
+        }
+
         return convertView;
     }
 
