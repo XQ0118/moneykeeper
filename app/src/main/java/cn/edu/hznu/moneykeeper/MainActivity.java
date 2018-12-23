@@ -2,37 +2,53 @@ package cn.edu.hznu.moneykeeper;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-        import android.content.DialogInterface;
+import android.content.Context;
+import android.content.DialogInterface;
         import android.content.Intent;
 
         import android.os.Build;
         import android.support.annotation.RequiresApi;
         import android.support.design.widget.FloatingActionButton;
+import android.support.v4.view.ViewConfigurationCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
         import android.os.Bundle;
         import android.util.Log;
         import android.view.LayoutInflater;
-        import android.view.View;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
         import android.support.v7.widget.Toolbar;
+import android.widget.TextClock;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.litepal.LitePal;
 
-        import java.util.ArrayList;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
         import cn.edu.hznu.moneykeeper.Adapter.CostListAdapter;
 import cn.edu.hznu.moneykeeper.Adapter.HeadPagerAdapter;
+import cn.edu.hznu.moneykeeper.Util.DateUtils;
+
+import static cn.edu.hznu.moneykeeper.Util.DateUtils.FORMAT_M;
+import static cn.edu.hznu.moneykeeper.Util.DateUtils.FORMAT_Y;
+import static cn.edu.hznu.moneykeeper.Util.DateUtils.calendar;
 
 public class MainActivity extends AppCompatActivity {
 
+    private Context mContext;
     private ViewPager mViewPager;
     private List<View> mViews;
     private LayoutInflater mInflater;
@@ -42,6 +58,13 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton btn_chart;
     private String lasttitle = null;
 
+    //选择时间
+    protected int mYear;
+    protected int mMonth;
+    protected String months;
+    private TextView dateTv;  //时间选择
+    public double month_cost_total = 0.00;
+    public TextView total_money, reside_money;
 
     /*CostBeanlist*/
     private List<CostBean> mCostBeanList;
@@ -67,30 +90,20 @@ public class MainActivity extends AppCompatActivity {
         //初始化数据库
         LitePal.initialize(MainActivity.this);
 
+
         //设置HeadViewPager
         setmViewPager();
+        //初始化底部圆点
         initDots();
-        mPagerAdapter = new HeadPagerAdapter(mViews);
-        mViewPager.setAdapter(mPagerAdapter);
-        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int i, float v, int i1) {
-                mDots.get(oldPosition).setImageResource(R.mipmap.dot_normal);
-                mDots.get(i).setImageResource(R.mipmap.dot_focused);
-                oldPosition = i;
-            }
 
-            @Override
-            public void onPageSelected(int i) { }
-
-            @Override
-            public void onPageScrollStateChanged(int i) { }
-        });
+        initViewPager();
 
         //数据库金额显示listView
         mCostBeanList = new ArrayList<>();
+
         //初始化账单
         initCostData();
+
 
         fab = findViewById(R.id.btn_Add);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -106,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
         //footer
         mFooter = LayoutInflater.from(MainActivity.this).inflate(R.layout.my_footer, null);//加载footer布局
         costList.addFooterView(mFooter, "",false);
-
+        //chart
         btn_chart = (ImageButton) findViewById(R.id.title_chart);
         btn_chart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,18 +130,88 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    //初始化状态栏
-    private void initStatusBar() {
-        if (statusBarView == null) {
-            //利用反射机制修改状态栏背景
-            int identifier = getResources().getIdentifier("statusBarBackground", "id", "android");
-            statusBarView = getWindow().findViewById(identifier);
-        }
-        if (statusBarView != null) {
-            statusBarView.setBackgroundResource(R.drawable.bg_gradient);
-        }
-    }
+    //初始化viewpager
+    private void initViewPager(){
+        mPagerAdapter = new HeadPagerAdapter(mViews);
+        mViewPager.setAdapter(mPagerAdapter);
+        mPagerAdapter.notifyDataSetChanged();
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+                mDots.get(oldPosition).setImageResource(R.mipmap.dot_normal);
+                mDots.get(i).setImageResource(R.mipmap.dot_focused);
+                oldPosition = i;
+                //获取当前月总花费
+                month_cost_total = 0.00;
+                getPerMonthCost();
 
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+                //获取当前月总花费
+                month_cost_total = 0.00;
+                getPerMonthCost();
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) { }
+        });
+
+        //点击设置预算
+        mViewPager.setOnTouchListener(new View.OnTouchListener() {
+            int flage = 0 ;
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()){
+                    case MotionEvent.ACTION_DOWN:
+                        flage = 0 ;
+                        break ;
+                    case MotionEvent.ACTION_MOVE:
+                        flage = 1 ;
+                        break ;
+                    case  MotionEvent.ACTION_UP :
+                        if (flage == 0) {
+                            int item = mViewPager.getCurrentItem();
+                            if(item==0){
+
+                                LayoutInflater inflate = getLayoutInflater();
+                                View reside_view = inflate.inflate(R.layout.headpager_left, null);
+                                View set_reside_dialog = inflate.inflate(R.layout.dialog_reside, null);
+                                final TextView reside = reside_view.findViewById(R.id.reside_money_month);
+                                EditText set_reside = set_reside_dialog.findViewById(R.id.set_reside_money);
+                                final String reside_money =set_reside.getText().toString();
+
+                                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                                LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
+                                View viewDialog = inflater.inflate(R.layout.dialog_reside, null);
+                                builder.setTitle("设置预算");
+                                builder.setView(viewDialog);
+                                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+
+//                                        reside.setText(reside_money);
+
+                                    }
+                                });
+                                builder.setNegativeButton("取消", null);
+                                builder.create().show();
+
+
+                            }else if(item==1){
+                                Toast.makeText(MainActivity.this, "2", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        break ;
+
+                }
+                return false;
+            }
+        });
+
+    }
     //设置viewpager
     private void setmViewPager(){
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
@@ -138,6 +221,7 @@ public class MainActivity extends AppCompatActivity {
         View view_right = mInflater.inflate(R.layout.headpager_right, null);
         mViews.add(view_left);
         mViews.add(view_right);
+
     }
 
     //底部圆点集合的初始化
@@ -155,6 +239,7 @@ public class MainActivity extends AppCompatActivity {
 
     //初始化listview数据
     private void initCostData() {
+
         mCostBeanList.clear();
         List<CostBean> costBeans = LitePal.findAll(CostBean.class);
         for(CostBean costBean: costBeans) {
@@ -193,6 +278,8 @@ public class MainActivity extends AppCompatActivity {
                         mCostBeanList.remove(position);
                         adapter.notifyDataSetChanged();
                         costList.setAdapter(adapter);
+                        //更新当前月的支出
+                        initViewPager();
 
                     }
                 });
@@ -201,11 +288,11 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
         //短按list_item进入编辑页面
         costList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(MainActivity.this, EditAddActivity.class);
                 CostBean id_edit = mCostBeanList.get(position);
                 List<CostBean> costBeanList = LitePal.where("costDateinfo = ?",String.valueOf(id_edit.getCostDateinfo()))
                         .find(CostBean.class);
@@ -230,7 +317,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("test",dateinfo_edit);
                 }
 
-//                Toast.makeText(MainActivity.this, title_edit, Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(MainActivity.this, EditAddActivity.class);
                 intent.putExtra("title_edit",title_edit);
                 intent.putExtra("date_edit",date_edit);
                 intent.putExtra("note_edit",note_edit);
@@ -238,16 +325,15 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("dateinfo_edit",dateinfo_edit);
                 intent.putExtra("colortype_edit", colortype_edit+"");
                 startActivity(intent);
-
             }
         });
+
     }
 
     //重置MainActivity页面内容
     @Override
     protected void onResume() {
         super.onResume();
-        initCostData();
         //设置状态栏的渐变颜色
         getWindow().getDecorView().addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
             @Override
@@ -257,10 +343,48 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         initStatusBar();
+
+        initCostData();
+        //重置当前月的支出
+//        month_cost_total = 0.00;
+//        getPerMonthCost();
+        initViewPager();
     }
 
+    //初始化状态栏
+    private void initStatusBar() {
+        if (statusBarView == null) {
+            //利用反射机制修改状态栏背景
+            int identifier = getResources().getIdentifier("statusBarBackground", "id", "android");
+            statusBarView = getWindow().findViewById(identifier);
+        }
+        if (statusBarView != null) {
+            statusBarView.setBackgroundResource(R.drawable.bg_gradient);
+        }
+    }
+
+    //获取当前月的支出
+    public void getPerMonthCost(){
+        //设置日期选择器初始日期
+        mYear = Integer.parseInt(DateUtils.getCurYear(FORMAT_Y));
+        mMonth = Integer.parseInt(DateUtils.getCurMonth(FORMAT_M));
+        //设置当前月
+        months = DateUtils.getCurDateStr("yyyy-MM");
+        //查询出当前月所有的金额数据
+        List<CostBean> monthCostList = LitePal.findAll(CostBean.class);
+        for(CostBean costBean: monthCostList){
+            //状态1表示支出，0表示收入
+            if(costBean.colorType == 1 && costBean.getCostDate().substring(0, 7) .equals(months)  ){
+                month_cost_total = month_cost_total + Double.parseDouble(costBean.getCostMoney());
+            }
+        }
+        total_money = findViewById(R.id.expend_money_month);
+        NumberFormat nf = new DecimalFormat("#,###.##");
+        String str = nf.format(month_cost_total);
+        total_money.setText(str);
+    }
+
+    //
 
 
 }
-
-

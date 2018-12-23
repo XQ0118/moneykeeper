@@ -23,6 +23,7 @@ public class CostListAdapter extends BaseAdapter{
     private List<CostBean> mList;
     private Context mContext;
     private LayoutInflater mLayoutInflater;
+    private List<Object> objects;
 
 
     public CostListAdapter(Context context, List<CostBean> list){
@@ -30,7 +31,6 @@ public class CostListAdapter extends BaseAdapter{
         this.mList = list;
         this.mLayoutInflater = LayoutInflater.from(context);
     }
-
 
     @Override
     public int getCount() {

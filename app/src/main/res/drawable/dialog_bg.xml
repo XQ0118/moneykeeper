@@ -3,10 +3,10 @@
     <!--设置渐变色-->
     <gradient
         android:angle="90"
-        android:endColor="#ffffff"
-        android:startColor="#ffffff" />
+        android:endColor="#3C3D50"
+        android:startColor="#3C3D50" />
 
-    <solid android:color="#ffffff" />
+    <solid android:color="#3C3D50" />
     <!--设置圆角-->
     <corners
         android:bottomLeftRadius="15px"

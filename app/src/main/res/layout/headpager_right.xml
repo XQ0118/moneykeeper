@@ -24,7 +24,7 @@
             android:layout_marginTop="20dp"
             />
         <TextView
-            android:id="@+id/expend_money_month"
+            android:id="@+id/income_money_month"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

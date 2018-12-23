@@ -1,6 +1,5 @@
 package cn.edu.hznu.moneykeeper;
 
-import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -17,22 +16,17 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import org.litepal.LitePal;
-
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-
 import cn.edu.hznu.moneykeeper.Adapter.IconAdapter;
 import cn.edu.hznu.moneykeeper.Util.DateUtils;
 import cn.edu.hznu.moneykeeper.Util.GetNowTime;
 import cn.edu.hznu.moneykeeper.add_fragment.ExpendFragment;
 import cn.edu.hznu.moneykeeper.add_fragment.IncomeFragment;
-
 import static cn.edu.hznu.moneykeeper.Util.DateUtils.FORMAT_M;
 import static cn.edu.hznu.moneykeeper.Util.DateUtils.FORMAT_Y;
-import static cn.edu.hznu.moneykeeper.Util.InsertImage.insertIconTitle;
+
 
 public class EditAddActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -90,7 +84,8 @@ public class EditAddActivity extends AppCompatActivity implements View.OnClickLi
         mYear = Integer.parseInt(DateUtils.getCurYear(FORMAT_Y));
         mMonth = Integer.parseInt(DateUtils.getCurMonth(FORMAT_M));
         //设置当前 日期
-        days = DateUtils.getCurDateStr("yyyy-MM-dd");
+//        days = DateUtils.getCurDateStr("yyyy-MM-dd");
+        days = last_date;
         dateTv.setText(days);
     }
 
@@ -105,7 +100,7 @@ public class EditAddActivity extends AppCompatActivity implements View.OnClickLi
 
         //主要字符串数据的声明
         cost_title = (TextView) findViewById(R.id.et_cost_title);
-        moneyTv = (TextView) findViewById(R.id.et_cost_money);
+//        moneyTv = (TextView) findViewById(R.id.et_cost_money);
         cost_note = (EditText) findViewById(R.id.et_cost_note);
         dateTv = (TextView) findViewById(R.id.btnDatePickerDialog);
         moneyTv = findViewById(R.id.et_cost_money);
@@ -163,6 +158,32 @@ public class EditAddActivity extends AppCompatActivity implements View.OnClickLi
                 showTimeSelector();
             }
         });
+    }
+
+    /**
+     * 设置状态
+     */
+    protected void setTitleStatus() {
+
+        //设置编辑选择的分类,时间，备注，金额
+        TextView title_edit = (TextView) findViewById(R.id.et_cost_title);
+        TextView date_edit = (TextView) findViewById(R.id.btnDatePickerDialog);
+        EditText note_edit = (EditText) findViewById(R.id.et_cost_note);
+        TextView money_edit = (TextView) findViewById(R.id.et_cost_money);
+        Intent intent = getIntent();
+        if(intent != null){
+            last_title = intent.getStringExtra("title_edit");
+            last_date = intent.getStringExtra("date_edit");
+            last_note = intent.getStringExtra("note_edit");
+            last_money = intent.getStringExtra("money_edit");
+            last_dateinfo = intent.getStringExtra("dateinfo_edit");
+            last_colortype = intent.getStringExtra("colortype_edit");
+            last_type = Integer.parseInt(last_colortype);
+        }
+        title_edit.setText(last_title);
+        date_edit.setText(last_date);
+        note_edit.setText(last_note);
+        money_edit.setText(last_money);
     }
 
     //支出fragment初始化数据
@@ -250,31 +271,6 @@ public class EditAddActivity extends AppCompatActivity implements View.OnClickLi
         super.onDestroy();
         // dataEncapsulation.closeDataBase_speedDial();
     }
-
-    /**
-     * 设置状态
-     */
-    protected void setTitleStatus() {
-
-        //设置编辑选择的分类,时间，备注，金额
-        TextView title_edit = (TextView) findViewById(R.id.et_cost_title);
-        TextView date_edit = (TextView) findViewById(R.id.btnDatePickerDialog);
-        EditText note_edit = (EditText) findViewById(R.id.et_cost_note);
-        TextView money_edit = (TextView) findViewById(R.id.et_cost_money);
-        Intent intent = getIntent();
-        last_title = intent.getStringExtra("title_edit");
-        last_date = intent.getStringExtra("date_edit");
-        last_note = intent.getStringExtra("note_edit");
-        last_money = intent.getStringExtra("money_edit");
-        last_dateinfo = intent.getStringExtra("dateinfo_edit");
-        last_colortype = intent.getStringExtra("colortype_edit");
-        last_type = Integer.parseInt(last_colortype);
-        title_edit.setText(last_title);
-        date_edit.setText(last_date);
-        note_edit.setText(last_note);
-        money_edit.setText(last_money);
-    }
-
 
     /**
      * 显示日期选择器

@@ -13,9 +13,9 @@ http://www.google.com/design/spec/style/color.html#color-ui-color-palette -->
     <color name="md_black_1000">#3C3D50</color>
     <color name="colorAccentStart">#71b8fb</color>
     <color name="colorAccentEnd">@color/colorAccent</color>
-    <color name="colorItemBackground">#ffffff</color>
-    <color name="black_semi_transparent">#B2000000</color>
-    <color name="background">#e5e5e5</color>
+    <color name="colorItemBackground">#3C3D50</color>
+    <color name="black_semi_transparent">#3C3D50</color>
+    <color name="background">#3C3D50</color>
     <color name="half_black">#73798C</color>
     <color name="white">#fafafa</color>
     <color name="red">#DA3E35</color>
