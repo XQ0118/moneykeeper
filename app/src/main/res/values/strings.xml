@@ -5,4 +5,5 @@
     <string name="text_setting">设置</string>
     <string name="default_note">备注：</string>
     <string name="text_home_footer_tip">统计页面可以查看往月记录</string>
+    <string name="lookback">回顾</string>
 </resources>

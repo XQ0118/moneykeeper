@@ -4,9 +4,12 @@ import android.widget.ImageView;
 
 import org.litepal.crud.LitePalSupport;
 
+import java.io.Serializable;
+
+import androidx.annotation.NonNull;
 
 
-public class CostBean extends LitePalSupport {
+public class CostBean extends LitePalSupport implements Serializable {
 
     public String costTitle;
     public String costDate;

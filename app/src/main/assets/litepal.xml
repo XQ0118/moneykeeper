@@ -4,7 +4,7 @@
     <dbname value="keeper" />
 
     <!--数据库版本号，用于更新数据库-->
-    <version value="6" />
+    <version value="10" />
 
     <!--
         将定义的数据实体类映射到数据表中

@@ -9,29 +9,22 @@ import android.content.DialogInterface;
         import android.os.Build;
         import android.support.annotation.RequiresApi;
         import android.support.design.widget.FloatingActionButton;
-import android.support.v4.view.ViewConfigurationCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
         import android.os.Bundle;
         import android.util.Log;
         import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewConfiguration;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
         import android.support.v7.widget.Toolbar;
-import android.widget.TextClock;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.litepal.LitePal;
 
+import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -44,7 +37,6 @@ import cn.edu.hznu.moneykeeper.Util.DateUtils;
 
 import static cn.edu.hznu.moneykeeper.Util.DateUtils.FORMAT_M;
 import static cn.edu.hznu.moneykeeper.Util.DateUtils.FORMAT_Y;
-import static cn.edu.hznu.moneykeeper.Util.DateUtils.calendar;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -86,17 +78,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.home_toolbar);
+        getWindow().getDecorView().addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                initStatusBar();
+                getWindow().getDecorView().removeOnLayoutChangeListener(this);
+            }
+        });
         setSupportActionBar(toolbar);
         //初始化数据库
         LitePal.initialize(MainActivity.this);
 
-
-        //设置HeadViewPager
-        setmViewPager();
         //初始化底部圆点
         initDots();
-
-        initViewPager();
 
         //数据库金额显示listView
         mCostBeanList = new ArrayList<>();
@@ -125,104 +119,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent  intent = new Intent(MainActivity.this, ChartActivity.class);
+                intent.putExtra("cost_list_chart",(Serializable) mCostBeanList);
                 startActivity(intent);
             }
         });
     }
 
-    //初始化viewpager
-    private void initViewPager(){
-        mPagerAdapter = new HeadPagerAdapter(mViews);
-        mViewPager.setAdapter(mPagerAdapter);
-        mPagerAdapter.notifyDataSetChanged();
-        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int i, float v, int i1) {
-                mDots.get(oldPosition).setImageResource(R.mipmap.dot_normal);
-                mDots.get(i).setImageResource(R.mipmap.dot_focused);
-                oldPosition = i;
-                //获取当前月总花费
-                month_cost_total = 0.00;
-                getPerMonthCost();
 
-            }
-
-            @Override
-            public void onPageSelected(int i) {
-                //获取当前月总花费
-                month_cost_total = 0.00;
-                getPerMonthCost();
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int i) { }
-        });
-
-        //点击设置预算
-        mViewPager.setOnTouchListener(new View.OnTouchListener() {
-            int flage = 0 ;
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()){
-                    case MotionEvent.ACTION_DOWN:
-                        flage = 0 ;
-                        break ;
-                    case MotionEvent.ACTION_MOVE:
-                        flage = 1 ;
-                        break ;
-                    case  MotionEvent.ACTION_UP :
-                        if (flage == 0) {
-                            int item = mViewPager.getCurrentItem();
-                            if(item==0){
-
-                                LayoutInflater inflate = getLayoutInflater();
-                                View reside_view = inflate.inflate(R.layout.headpager_left, null);
-                                View set_reside_dialog = inflate.inflate(R.layout.dialog_reside, null);
-                                final TextView reside = reside_view.findViewById(R.id.reside_money_month);
-                                EditText set_reside = set_reside_dialog.findViewById(R.id.set_reside_money);
-                                final String reside_money =set_reside.getText().toString();
-
-                                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                                LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
-                                View viewDialog = inflater.inflate(R.layout.dialog_reside, null);
-                                builder.setTitle("设置预算");
-                                builder.setView(viewDialog);
-                                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-
-//                                        reside.setText(reside_money);
-
-                                    }
-                                });
-                                builder.setNegativeButton("取消", null);
-                                builder.create().show();
-
-
-                            }else if(item==1){
-                                Toast.makeText(MainActivity.this, "2", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-
-                        break ;
-
-                }
-                return false;
-            }
-        });
-
-    }
-    //设置viewpager
-    private void setmViewPager(){
-        mViewPager = (ViewPager) findViewById(R.id.viewpager);
-        mInflater = getLayoutInflater();
-        mViews = new ArrayList<View>();
-        View view_left = mInflater.inflate(R.layout.headpager_left, null);
-        View view_right = mInflater.inflate(R.layout.headpager_right, null);
-        mViews.add(view_left);
-        mViews.add(view_right);
-
-    }
 
     //底部圆点集合的初始化
     @SuppressLint("WrongViewCast")
@@ -278,8 +181,10 @@ public class MainActivity extends AppCompatActivity {
                         mCostBeanList.remove(position);
                         adapter.notifyDataSetChanged();
                         costList.setAdapter(adapter);
-                        //更新当前月的支出
-                        initViewPager();
+                        //重置当前月的支出
+                        month_cost_total = 0.00;
+                        getPerMonthCost();
+
 
                     }
                 });
@@ -334,6 +239,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
         //设置状态栏的渐变颜色
         getWindow().getDecorView().addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
             @Override
@@ -346,9 +252,9 @@ public class MainActivity extends AppCompatActivity {
 
         initCostData();
         //重置当前月的支出
-//        month_cost_total = 0.00;
-//        getPerMonthCost();
-        initViewPager();
+        month_cost_total = 0.00;
+        getPerMonthCost();
+
     }
 
     //初始化状态栏
@@ -385,6 +291,5 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //
-
 
 }
