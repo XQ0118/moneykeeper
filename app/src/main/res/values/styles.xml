@@ -1,10 +1,10 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme.Base" parent="Theme.AppCompat.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+
 
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorAccent</item>
@@ -33,6 +33,8 @@
     <!-- Base application theme. -->
     <style name="ChartActivity" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
+        <item name="windowActionBar">false</item>
+
         <item name="colorPrimary">@color/md_black_1000</item>
         <item name="colorPrimaryDark">@color/md_black_1000</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -60,21 +62,23 @@
         <item name="android:windowContentOverlay">@null</item>
     </style>
 
-    <style name="mydialogstyle" parent="@android:style/Theme.Dialog">
-        <!--Dialog的windowFrame框为无 -->
-        <item name="android:windowFrame">@null</item>
-        <!--是否浮现在activity之上-->
-        <item name="android:windowIsFloating">true</item>
-        <!--是否半透明-->
-        <item name="android:windowIsTranslucent">false</item>
-        <!--是否显示title-->
-        <item name="android:windowNoTitle">true</item>
-        <!--设置dialog的背景-->
-        <item name="android:windowBackground">@drawable/dialog_bg</item>
-        <!-- 背景是否模糊显示-->
-        <item name="android:backgroundDimEnabled">true</item>
+    <!--<style name="mydialogstyle" parent="@android:style/Theme.Dialog">-->
+        <!--&lt;!&ndash;Dialog的windowFrame框为无 &ndash;&gt;-->
+        <!--<item name="android:windowFrame">@null</item>-->
+        <!--&lt;!&ndash;是否浮现在activity之上&ndash;&gt;-->
+        <!--<item name="android:windowIsFloating">true</item>-->
+        <!--&lt;!&ndash;是否半透明&ndash;&gt;-->
+        <!--<item name="android:windowIsTranslucent">false</item>-->
+        <!--&lt;!&ndash;是否显示title&ndash;&gt;-->
+        <!--<item name="android:windowNoTitle">true</item>-->
+        <!--&lt;!&ndash;设置dialog的背景&ndash;&gt;-->
+        <!--<item name="android:windowBackground">@drawable/dialog_bg</item>-->
+        <!--&lt;!&ndash; 背景是否模糊显示&ndash;&gt;-->
+        <!--<item name="android:backgroundDimEnabled">true</item>-->
+    <!--</style>-->
+
+    <style name="AppTheme.AppBarOverlay" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="elevation">0dp</item>
     </style>
-
-
 
 </resources>

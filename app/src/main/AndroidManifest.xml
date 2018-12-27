@@ -43,7 +43,9 @@
             android:parentActivityName=".ChartActivity"
             android:screenOrientation="portrait"
             android:theme="@style/LookBackActivity"></activity>
+
         <activity android:name=".ChartActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/ChartActivity">
 
         </activity>

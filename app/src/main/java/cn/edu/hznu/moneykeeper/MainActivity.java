@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView dateTv;  //时间选择
     public double month_cost_total = 0.00;
     public TextView total_money, reside_money;
+    public TextView tv_delete_title;
 
     /*CostBeanlist*/
     private List<CostBean> mCostBeanList;
@@ -119,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent  intent = new Intent(MainActivity.this, ChartActivity.class);
-                intent.putExtra("cost_list_chart",(Serializable) mCostBeanList);
+//                intent.putExtra("cost_list_chart",(Serializable) mCostBeanList);
                 startActivity(intent);
             }
         });
@@ -167,6 +168,13 @@ public class MainActivity extends AppCompatActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                 LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
                 View viewDialog = inflater.inflate(R.layout.my_dialog, null);
+                tv_delete_title = (TextView) viewDialog.findViewById(R.id.delete_item_info);
+                CostBean delete_title = mCostBeanList.get(position);
+                String delete_title_info = delete_title.costTitle;
+                String delete_title_money = delete_title.costMoney;
+                String delete_str = String.format("%s ¥%s", delete_title_info, delete_title_money);
+
+                tv_delete_title.setText(delete_str);
 
                 builder.setView(viewDialog);
                 builder.setPositiveButton("删除", new DialogInterface.OnClickListener() {
@@ -184,7 +192,6 @@ public class MainActivity extends AppCompatActivity {
                         //重置当前月的支出
                         month_cost_total = 0.00;
                         getPerMonthCost();
-
 
                     }
                 });
@@ -232,7 +239,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
 
     //重置MainActivity页面内容
@@ -248,8 +254,10 @@ public class MainActivity extends AppCompatActivity {
                 getWindow().getDecorView().removeOnLayoutChangeListener(this);
             }
         });
-        initStatusBar();
 
+        //设置顶部栏的渐变色
+        initStatusBar();
+        //初始化金额数据
         initCostData();
         //重置当前月的支出
         month_cost_total = 0.00;

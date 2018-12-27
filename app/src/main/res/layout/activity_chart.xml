@@ -9,7 +9,8 @@
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
 
         <include
             android:id="@+id/toolbarLayout"
@@ -18,40 +19,42 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:gravity="center">
-        <LinearLayout
-            android:id="@+id/btn_choose_year"
-            android:background="@drawable/bg_ripple2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center">
-            <TextView
-                android:id="@+id/date_year"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center|fill_vertical"
-                android:text=""
-                android:textSize="20sp"
-                android:textColor="@color/white_pressed"/>
-            <ImageView
-                android:layout_width="10dp"
-                android:layout_height="10dp"
-                android:background="@mipmap/down"
-                android:layout_margin="5dp"/>
-        </LinearLayout>
-    </LinearLayout>
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="50dp"-->
+        <!--android:gravity="center">-->
+        <!--<LinearLayout-->
+            <!--android:id="@+id/btn_choose_year"-->
+            <!--android:background="@drawable/bg_ripple2"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:gravity="center">-->
+            <!--<TextView-->
+                <!--android:id="@+id/date_year"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:gravity="center|fill_vertical"-->
+                <!--android:text=""-->
+                <!--android:textSize="20sp"-->
+                <!--android:textColor="@color/white_pressed"/>-->
+            <!--<ImageView-->
+                <!--android:layout_width="10dp"-->
+                <!--android:layout_height="10dp"-->
+                <!--android:background="@mipmap/down"-->
+                <!--android:layout_margin="5dp"/>-->
+        <!--</LinearLayout>-->
+    <!--</LinearLayout>-->
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="225dp"
-        android:padding="10dp">
+        android:paddingRight="15dp">
 
         <lecho.lib.hellocharts.view.LineChartView
             android:id="@+id/linechart"
-            android:padding="10dp"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="10dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 

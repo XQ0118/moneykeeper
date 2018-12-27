@@ -15,10 +15,34 @@
 
         <ImageButton
             android:id="@+id/back_to_home"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:background="@mipmap/delete"
+            android:layout_width="17.5dp"
+            android:layout_height="17.5dp"
+            android:background="@mipmap/home"
             android:layout_alignParentLeft="true" />
+
+
+            <LinearLayout
+                android:id="@+id/btn_choose_year"
+                android:background="@drawable/bg_ripple2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center">
+                <TextView
+                    android:id="@+id/date_year"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center|center_vertical"
+                    android:text=""
+                    android:textSize="22sp"
+                    android:textColor="@color/white_pressed"/>
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:background="@mipmap/down"
+                    android:layout_margin="5dp"/>
+            </LinearLayout>
+
 
         <TextView
             android:id="@+id/look_back"
