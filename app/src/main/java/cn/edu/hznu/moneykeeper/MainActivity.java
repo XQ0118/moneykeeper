@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
         import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
@@ -28,6 +29,7 @@ import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -48,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
     private List<ImageView> mDots;//定义一个集合存储2个dot
     private int oldPosition;//记录当前点的位置。
     private ImageButton btn_chart;
-    private String lasttitle = null;
+    private ImageButton btn_set;
 
     //选择时间
     protected int mYear;
@@ -56,7 +58,8 @@ public class MainActivity extends AppCompatActivity {
     protected String months;
     private TextView dateTv;  //时间选择
     public double month_cost_total = 0.00;
-    public TextView total_money, reside_money;
+    public double month_income_total = 0.00;
+    public TextView total_money, income_money;
     public TextView tv_delete_title;
 
     /*CostBeanlist*/
@@ -64,13 +67,13 @@ public class MainActivity extends AppCompatActivity {
     /*CostBeanlist*/
     /*ListView*/
     private ListView costList;
+    private CostListAdapter adapter;
     /*ListView*/
 
 
     private View mFooter; //footer
     private FloatingActionButton fab;
     private Intent intent;
-    private CostListAdapter adapter;
     private View statusBarView;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -124,6 +127,37 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        btn_set = (ImageButton) findViewById(R.id.title_setting);
+        btn_set.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
+                View viewDialog = inflater.inflate(R.layout.dialog_deleteall, null);
+                tv_delete_title = (TextView) viewDialog.findViewById(R.id.delete_item_info);
+
+                builder.setView(viewDialog);
+                builder.setPositiveButton("删除", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //删除所有数据
+                        LitePal.deleteAll(CostBean.class);
+                        mCostBeanList.clear();
+                        adapter.notifyDataSetChanged();
+                        costList.setAdapter(adapter);
+                        //重置当前月的支出
+                        month_cost_total = 0.00;
+                        month_income_total = 0.00;
+                        getPerMonthCost();
+                        getPerMonthIncome();
+
+                    }
+                });
+                builder.setNegativeButton("取消", null);
+                builder.create().show();
+
+            }
+        });
     }
 
 
@@ -159,6 +193,8 @@ public class MainActivity extends AppCompatActivity {
         adapter = new CostListAdapter(MainActivity.this, mCostBeanList);
         adapter.notifyDataSetChanged();
         costList.setAdapter(adapter);
+        LinearLayout mEmptyTv = (LinearLayout) findViewById(R.id.nothing_view);
+        costList.setEmptyView(mEmptyTv);
         Collections.reverse(mCostBeanList);
 
         //长按list_item删除
@@ -191,7 +227,9 @@ public class MainActivity extends AppCompatActivity {
                         costList.setAdapter(adapter);
                         //重置当前月的支出
                         month_cost_total = 0.00;
+                        month_income_total = 0.00;
                         getPerMonthCost();
+                        getPerMonthIncome();
 
                     }
                 });
@@ -261,7 +299,9 @@ public class MainActivity extends AppCompatActivity {
         initCostData();
         //重置当前月的支出
         month_cost_total = 0.00;
+        month_income_total = 0.00;
         getPerMonthCost();
+        getPerMonthIncome();
 
     }
 
@@ -298,6 +338,25 @@ public class MainActivity extends AppCompatActivity {
         total_money.setText(str);
     }
 
-    //
+    //获取当前月的收入
+    public void getPerMonthIncome(){
+        //设置日期选择器初始日期
+        mYear = Integer.parseInt(DateUtils.getCurYear(FORMAT_Y));
+        mMonth = Integer.parseInt(DateUtils.getCurMonth(FORMAT_M));
+        //设置当前月
+        months = DateUtils.getCurDateStr("yyyy-MM");
+        //查询出当前月所有的金额数据
+        List<CostBean> monthCostList = LitePal.findAll(CostBean.class);
+        for(CostBean costBean: monthCostList){
+            //状态1表示支出，0表示收入
+            if(costBean.colorType == 0 && costBean.getCostDate().substring(0, 7) .equals(months)  ){
+                month_income_total = month_income_total + Double.parseDouble(costBean.getCostMoney());
+            }
+        }
+        income_money = findViewById(R.id.income_money_month);
+        NumberFormat nf = new DecimalFormat("#,###.##");
+        String str = nf.format(month_income_total);
+        income_money.setText(str);
+    }
 
 }

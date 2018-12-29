@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<selector xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_checked="true">
         <shape>
-            <corners android:bottomRightRadius="5dp" android:topRightRadius="5dp" />
             <gradient android:endColor="@color/colorAccentEnd" android:startColor="@color/colorAccentStart" />
         </shape>
     </item>
-    <item >
+    <item android:state_checked="false" tools:ignore="StateListReachable">
         <shape>
-            <corners android:bottomRightRadius="5dp"  android:topRightRadius="5dp" />
             <solid android:color="@color/md_black_down" />
         </shape>
     </item>

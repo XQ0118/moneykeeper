@@ -99,8 +99,6 @@ public class IncomeFragment extends Fragment {
         });
     }
 
-    private int getmCurrentPosition(){
-        return mCurrentPosition;
-    }
+
 
 }

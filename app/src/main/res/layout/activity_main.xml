@@ -63,6 +63,37 @@
 
     </ListView>
 
+    <LinearLayout
+        android:id="@+id/nothing_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="100"
+        android:layout_marginTop="180dp"
+        android:gravity="center"
+        android:orientation="vertical">
+        <ImageView
+            android:gravity="center"
+            android:layout_width="150dp"
+            android:layout_height="100dp"
+            android:background="@mipmap/icon_home_empty" />
+        <TextView
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="本月未开始记账"
+            android:textColor="#73798C"
+            android:textSize="16sp"/>
+        <TextView
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="点击加号,开始记账"
+            android:textColor="#73798C"
+            android:textSize="16sp"/>
+    </LinearLayout>
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/btn_Add"
         android:layout_width="wrap_content"

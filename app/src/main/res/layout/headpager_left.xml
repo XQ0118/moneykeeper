@@ -54,13 +54,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="剩余预算 ( ¥ )"
+            android:text="本月收入 ( ¥ )"
             android:textColor="@color/white"
             android:textSize="16sp"
             android:layout_marginTop="20dp"
             />
         <TextView
-            android:id="@+id/reside_money_month"
+            android:id="@+id/income_money_month"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

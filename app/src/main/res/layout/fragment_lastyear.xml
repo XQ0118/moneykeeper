@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <TextView
+            android:layout_marginVertical="7.5dp"
+            android:layout_width="7.5dp"
+            android:layout_height="7.55dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="25sp"
+            android:background="@drawable/cicrle_red"/>
+        <TextView
+            android:layout_marginLeft="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="支出"
+            android:textColor="@color/white_pressed"
+            android:textSize="12sp"/>
+        <TextView
+            android:id="@+id/expend_money_year"
+            android:layout_marginLeft="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/white_pressed"
+            android:textSize="12sp"/>
+
+        <TextView
+            android:layout_marginVertical="7.5dp"
+            android:layout_width="7.5dp"
+            android:layout_height="7.55dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10sp"
+            android:background="@drawable/cicrle_green"/>
+        <TextView
+
+            android:layout_marginLeft="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="收入"
+            android:textColor="@color/white_pressed"
+            android:textSize="12sp"/>
+        <TextView
+            android:id="@+id/income_money_year"
+            android:layout_marginLeft="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/white_pressed"
+            android:textSize="12sp"/>
+
+    </LinearLayout>
+
+    <lecho.lib.hellocharts.view.LineChartView
+        android:id="@+id/chart_center"
+        android:layout_marginTop="20dp"
+        android:paddingHorizontal="12.5dp"
+        android:layout_width="fill_parent"
+        android:layout_height="200dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_marginVertical="7.5dp"
+            android:layout_width="7.5dp"
+            android:layout_height="7.55dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="25sp"
+            android:background="@color/redred"/>
+        <TextView
+
+            android:layout_marginLeft="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="支出"
+            android:textColor="@color/white_pressed"
+            android:textSize="10sp"/>
+
+        <TextView
+            android:layout_marginVertical="7.5dp"
+            android:layout_width="7.5dp"
+            android:layout_height="7.55dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10sp"
+            android:background="@color/greengreen"/>
+        <TextView
+
+            android:layout_marginLeft="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="收入"
+            android:textColor="@color/white_pressed"
+            android:textSize="10sp"/>
+
+    </LinearLayout>
+
+    <ListView
+        android:paddingTop="20dp"
+        android:layout_marginTop="15dp"
+        android:paddingHorizontal="5dp"
+        android:id="@+id/lv_main_center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@null"
+        android:fadingEdge="none"
+        android:headerDividersEnabled="false"
+        android:footerDividersEnabled="false"
+        android:layout_margin="10dp"
+        android:dividerHeight="10dp"
+        android:fastScrollEnabled="false"
+        android:scrollbars="none">
+
+    </ListView>
+
+
+    <LinearLayout
+        android:id="@+id/nothing_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="100"
+        android:layout_marginTop="125dp"
+        android:gravity="center"
+        android:orientation="vertical">
+        <ImageView
+            android:gravity="center"
+            android:layout_width="150dp"
+            android:layout_height="100dp"
+            android:background="@mipmap/icon_home_empty" />
+        <TextView
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="每一笔账单，都是生活的点滴"
+            android:textColor="#73798C"
+            android:textSize="16sp"/>
+
+    </LinearLayout>
+</LinearLayout>

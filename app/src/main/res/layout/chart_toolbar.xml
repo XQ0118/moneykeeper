@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
     android:background="@color/md_black_1000"
+
     app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
     <RelativeLayout
@@ -13,13 +14,20 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <ImageButton
+        <LinearLayout
             android:id="@+id/back_to_home"
-            android:layout_width="17.5dp"
-            android:layout_height="17.5dp"
-            android:background="@mipmap/home"
-            android:layout_alignParentLeft="true" />
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="0dp"
+            android:gravity="center_vertical">
 
+            <ImageButton
+                android:layout_width="17.5dp"
+                android:layout_height="17.5dp"
+                android:background="@mipmap/home" />
+        </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/btn_choose_year"
@@ -36,11 +44,7 @@
                     android:text=""
                     android:textSize="22sp"
                     android:textColor="@color/white_pressed"/>
-                <ImageView
-                    android:layout_width="10dp"
-                    android:layout_height="10dp"
-                    android:background="@mipmap/down"
-                    android:layout_margin="5dp"/>
+
             </LinearLayout>
 
 
@@ -50,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginRight="15dp"
-            android:gravity="center"
+            android:layout_marginVertical="15dp"
             android:text="回顾"
             android:textSize="16sp"
             android:textColor="@color/white_pressed"/>

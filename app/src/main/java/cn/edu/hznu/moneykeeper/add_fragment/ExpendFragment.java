@@ -122,9 +122,7 @@ public class ExpendFragment extends Fragment {
         });
     }
 
-    private int getmCurrentPosition(){
-        return mCurrentPosition;
-    }
+
 
 
 }
