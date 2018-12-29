@@ -114,12 +114,17 @@ public class AddcostActivity extends AppCompatActivity implements View.OnClickLi
         moneyTv = findViewById(R.id.et_cost_money);
 
         /*keyboard*/
-        ImageView tb_clear = findViewById(R.id.tb_note_clear);
-        tb_clear.setOnClickListener(this);
         TextView tb_done = findViewById(R.id.tb_calc_num_done);
         tb_done.setOnClickListener(this);
         RelativeLayout tb_del = findViewById(R.id.tb_calc_num_del);
         tb_del.setOnClickListener(this);
+        tb_del.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                doClear();
+                return true;
+            }
+        });
         TextView tb_dot = findViewById(R.id.tb_calc_num_dot);
         tb_dot.setOnClickListener(this);
         TextView tb_0 = findViewById(R.id.tb_calc_num_0);
@@ -343,9 +348,6 @@ public class AddcostActivity extends AppCompatActivity implements View.OnClickLi
                     dotNum = ".";
                 }
                 moneyTv.setText(num + dotNum);
-                break;
-            case R.id.tb_note_clear://清空
-                doClear();
                 break;
             case R.id.tb_calc_num_del://删除
                 doDelete();

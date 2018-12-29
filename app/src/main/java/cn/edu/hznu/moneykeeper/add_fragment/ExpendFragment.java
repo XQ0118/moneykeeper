@@ -106,18 +106,13 @@ public class ExpendFragment extends Fragment {
         gridViewicon.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                Toast.makeText(getActivity(), "你选择了" + (position + 1) + " 号图片", Toast.LENGTH_SHORT).show();
-                ExpendFragment.expend_chosenPos = position;
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+                ExpendFragment.expend_chosenPos = position;
                 TextView title_edit = (TextView) getActivity().findViewById(R.id.et_cost_title);
                 TextView textView = (TextView) view.findViewById(R.id.gridview_expend_item_tv);
                 String message = textView.getText().toString();
                 title_edit.setText(message);
-
-//                mCurrentPosition = (Integer) view.getTag();
-
             }
         });
     }

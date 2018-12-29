@@ -84,17 +84,13 @@ public class IncomeFragment extends Fragment {
         gridViewicon_IN.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                Toast.makeText(getActivity(), "你选择了" + (position + 1) + " 号图片", Toast.LENGTH_SHORT).show();
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
                 IncomeFragment.income_chosenPos = position+100;
                 TextView title_edit = (TextView) getActivity().findViewById(R.id.et_cost_title);
                 TextView textView = (TextView) view.findViewById(R.id.gridview_expend_item_tv);
                 String message = textView.getText().toString();
                 title_edit.setText(message);
-
-//                mCurrentPosition = (Integer) view.getTag();
-
             }
         });
     }

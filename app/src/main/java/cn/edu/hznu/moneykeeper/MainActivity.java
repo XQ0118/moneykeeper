@@ -216,8 +216,6 @@ public class MainActivity extends AppCompatActivity {
                 builder.setPositiveButton("删除", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //删除所有数据
-                        //mDatabaseHelper.deleteAllData();
                         //删除选中的数据
                         CostBean id = mCostBeanList.get(position);
                         LitePal.deleteAll(CostBean.class,"costDateinfo = ?", id.getCostDateinfo());
