@@ -36,23 +36,24 @@ public class ChartUtils {
         //线
         Line line = new Line(values);  //支出
         Line line1 = new Line(values2); //收入
-        line.setCubic(false); //取消曲线折断
+
+
         line.setStrokeWidth(1);//设置线的宽度
-        line.setPointRadius(2);//坐标点大小
+        line.setPointRadius(4);//坐标点大小
         line.setCubic(true);//曲线是否平滑，即是曲线还是折线
 //        line.setFilled(true);//是否填充曲线的面积
-//        line.setHasLabels(true);//曲线的数据坐标是否加上备注
+        line.setHasLabels(true);//曲线的数据坐标是否加上备注
         line.setHasLabelsOnlyForSelected(true);//点击数据坐标提示数据
         line.setColor(Color.parseColor("#FF6F6F"));
         line.setShape(ValueShape.CIRCLE);
         line.setPointColor(Color.parseColor("#FF6F6F"));
 
-        line1.setCubic(false); //取消曲线折断
+
         line1.setStrokeWidth(1);//设置线的宽度
-        line1.setPointRadius(2);//坐标点大小
+        line1.setPointRadius(4);//坐标点大小
         line1.setCubic(true);//曲线是否平滑，即是曲线还是折线
 //        line1.setFilled(true);//是否填充曲线的面积
-//        line.setHasLabels(true);//曲线的数据坐标是否加上备注
+        line1.setHasLabels(true);//曲线的数据坐标是否加上备注
         line1.setHasLabelsOnlyForSelected(true);//点击数据坐标提示数据
         line1.setColor(Color.parseColor("#02AE7C"));
         line1.setShape(ValueShape.CIRCLE);
@@ -69,6 +70,7 @@ public class ChartUtils {
         //x
         axisX = new Axis().setHasLines(true);
         axisX.setMaxLabelChars(1);
+        axisX.setLineColor(Color.parseColor("#B0BBC5")); //x轴颜色
         axisX.setTextColor(Color.parseColor("#73798C"));//设置x轴字体的颜色
         axisX.setValues(mAxisXValues);
         mData.setAxisXBottom(axisX);

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MoneyKeeper</string>
+    <string name="app_name">叨叨记</string>
     <string name="add_activity_name">记一笔</string>
     <string name="input_cost">输入金额</string>
     <string name="text_setting">设置</string>

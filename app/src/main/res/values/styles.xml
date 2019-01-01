@@ -53,14 +53,11 @@
     </style>
 
     <!-- Base application theme. -->
-    <style name="LookBackActivity" parent="Base.Theme.AppCompat">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/md_black_1000</item>
-        <item name="colorPrimaryDark">@color/md_black_1000</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowBackground">@color/md_black_1000</item>
-        <item name="android:windowContentOverlay">@null</item>
+    <style name="Splash" parent="Theme.AppCompat.NoActionBar">
+
+
     </style>
+
 
     <!--<style name="mydialogstyle" parent="@android:style/Theme.Dialog">-->
         <!--&lt;!&ndash;Dialog的windowFrame框为无 &ndash;&gt;-->

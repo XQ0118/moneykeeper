@@ -42,15 +42,6 @@ public class ChartActivity extends AppCompatActivity {
                 finish();
             }
         });
-        //回顾事件--
-        TextView look_back = (TextView) findViewById(R.id.look_back);
-        look_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ChartActivity.this, LookBackActivity.class);
-                startActivity(intent);
-            }
-        });
 
         //初始化fragment数据;今年
         initThisYearFragment();

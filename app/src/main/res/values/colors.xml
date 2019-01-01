@@ -5,7 +5,7 @@
 <!-- google's material design colours from
 http://www.google.com/design/spec/style/color.html#color-ui-color-palette -->
     <color name="colorPrimary">#9576fc</color>
-    <color name="colorPrimaryDark">#9576fc</color>
+    <color name="colorPrimaryDark">#111</color>
     <color name="colorAccent">#9576fc</color>
 
     <!--use daily-->

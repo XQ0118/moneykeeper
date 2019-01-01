@@ -4,39 +4,32 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-        import android.content.Intent;
-
-        import android.os.Build;
-        import android.support.annotation.RequiresApi;
-        import android.support.design.widget.FloatingActionButton;
+import android.content.Intent;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-        import android.os.Bundle;
-        import android.util.Log;
-        import android.view.LayoutInflater;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-        import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
-
 import org.litepal.LitePal;
-
-import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-
-        import cn.edu.hznu.moneykeeper.Adapter.CostListAdapter;
+import cn.edu.hznu.moneykeeper.Adapter.CostListAdapter;
 import cn.edu.hznu.moneykeeper.Adapter.HeadPagerAdapter;
 import cn.edu.hznu.moneykeeper.Util.DateUtils;
-
 import static cn.edu.hznu.moneykeeper.Util.DateUtils.FORMAT_M;
 import static cn.edu.hznu.moneykeeper.Util.DateUtils.FORMAT_Y;
 
@@ -80,8 +73,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.home_toolbar);
         getWindow().getDecorView().addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
             @Override
             public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
@@ -89,20 +80,25 @@ public class MainActivity extends AppCompatActivity {
                 getWindow().getDecorView().removeOnLayoutChangeListener(this);
             }
         });
+        setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.home_toolbar);
+
         setSupportActionBar(toolbar);
+        income_money = findViewById(R.id.income_money_month);
+        total_money = findViewById(R.id.expend_money_month);
         //初始化数据库
         LitePal.initialize(MainActivity.this);
-
-        //初始化底部圆点
-        initDots();
 
         //数据库金额显示listView
         mCostBeanList = new ArrayList<>();
 
+        //初始化底部圆点
+        initDots();
+
         //初始化账单
         initCostData();
 
-
+        //fab按钮
         fab = findViewById(R.id.btn_Add);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,7 +119,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent  intent = new Intent(MainActivity.this, ChartActivity.class);
-//                intent.putExtra("cost_list_chart",(Serializable) mCostBeanList);
                 startActivity(intent);
             }
         });
@@ -150,6 +145,7 @@ public class MainActivity extends AppCompatActivity {
                         month_income_total = 0.00;
                         getPerMonthCost();
                         getPerMonthIncome();
+                        initDots();
 
                     }
                 });
@@ -158,6 +154,8 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+
     }
 
 
@@ -171,8 +169,18 @@ public class MainActivity extends AppCompatActivity {
         ImageView dotFSecond = (ImageView) findViewById(R.id.dot_second);
         mDots.add(dotFirst);
         mDots.add(dotFSecond);
-        oldPosition = 0;
-        mDots.get(oldPosition).setImageResource(R.mipmap.dot_focused);
+        if(!total_money.getText().toString().equals("0.00")){
+            mDots.get(0).setImageResource(R.mipmap.dot_focused);
+        }else {
+            mDots.get(0).setImageResource(R.mipmap.dot_normal);
+        }
+         if(!income_money.getText().toString().equals("0.00")){
+            mDots.get(1).setImageResource(R.mipmap.dot_focused);
+        }else {
+             mDots.get(1).setImageResource(R.mipmap.dot_normal);
+         }
+
+
     }
 
     //初始化listview数据
@@ -228,6 +236,7 @@ public class MainActivity extends AppCompatActivity {
                         month_income_total = 0.00;
                         getPerMonthCost();
                         getPerMonthIncome();
+                        initDots();
 
                     }
                 });
@@ -300,6 +309,7 @@ public class MainActivity extends AppCompatActivity {
         month_income_total = 0.00;
         getPerMonthCost();
         getPerMonthIncome();
+        initDots();
 
     }
 
@@ -330,10 +340,14 @@ public class MainActivity extends AppCompatActivity {
                 month_cost_total = month_cost_total + Double.parseDouble(costBean.getCostMoney());
             }
         }
-        total_money = findViewById(R.id.expend_money_month);
+
         NumberFormat nf = new DecimalFormat("#,###.##");
         String str = nf.format(month_cost_total);
-        total_money.setText(str);
+        if(month_cost_total==0.00){
+            total_money.setText("0.00");
+        }else {
+            total_money.setText(str);
+        }
     }
 
     //获取当前月的收入
@@ -351,10 +365,15 @@ public class MainActivity extends AppCompatActivity {
                 month_income_total = month_income_total + Double.parseDouble(costBean.getCostMoney());
             }
         }
-        income_money = findViewById(R.id.income_money_month);
+
         NumberFormat nf = new DecimalFormat("#,###.##");
         String str = nf.format(month_income_total);
-        income_money.setText(str);
+        if(month_income_total == 0.00){
+            income_money.setText("0.00");
+        }
+        else {
+            income_money.setText(str);
+        }
     }
 
 }

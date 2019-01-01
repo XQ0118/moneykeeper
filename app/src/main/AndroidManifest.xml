@@ -6,7 +6,7 @@
     <application
         android:name="org.litepal.LitePalApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/icon"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -15,11 +15,11 @@
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
         </activity>
         <activity
             android:name=".AddcostActivity"
@@ -38,16 +38,16 @@
 
         </activity>
         <activity
-            android:name=".LookBackActivity"
-            android:label="@string/lookback"
-            android:parentActivityName=".ChartActivity"
+            android:name=".ChartActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/LookBackActivity"></activity>
+            android:theme="@style/ChartActivity"></activity>
+        <activity android:name=".Splash"
+            android:theme="@style/Splash">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-        <activity android:name=".ChartActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/ChartActivity">
-
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

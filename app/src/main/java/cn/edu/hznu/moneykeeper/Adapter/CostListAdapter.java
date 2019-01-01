@@ -9,6 +9,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,11 +76,15 @@ public class CostListAdapter extends BaseAdapter{
         if( bean.getColorType() == 1){
             //red
             viewHolder.mTvCostMoney.setTextColor(Color.parseColor("#FF6F6F"));
-            viewHolder.mTvCostMoney.setText("-"+bean.costMoney);
+            NumberFormat nf = new DecimalFormat("#,###.##");
+            String str = nf.format(Double.parseDouble(bean.costMoney));
+            viewHolder.mTvCostMoney.setText("-"+str);
         }else {
             //green
             viewHolder.mTvCostMoney.setTextColor(Color.parseColor("#02AE7C"));
-            viewHolder.mTvCostMoney.setText("+"+bean.costMoney);
+            NumberFormat nf = new DecimalFormat("#,###.##");
+            String str = nf.format(Double.parseDouble(bean.costMoney));
+            viewHolder.mTvCostMoney.setText("+"+str);
         }
 
         return convertView;

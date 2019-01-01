@@ -426,14 +426,15 @@ public class ThisYearFragment extends Fragment {
     private void initDataList() {
 
         list = new ArrayList<Map<String, Object>>();
+        NumberFormat nf = new DecimalFormat("#,###.##");
         for (int i = 11; i >=0; i--) {
             if((perMonthCosts[i] !=0.00) || (perMonthIncomes[i] != 0.00)){
                 Map<String, Object> map = new HashMap<String, Object>();
                 map.put("year", days + "年");
                 map.put("months",  i+1+"月");
-                map.put("expend", "¥"+ perMonthCosts[i]);
-                map.put("income", "¥"+  perMonthIncomes[i]);
-                map.put("surplus","¥"+ sub(perMonthIncomes[i] , perMonthCosts[i]));
+                map.put("expend", "¥"+ nf.format(perMonthCosts[i]));
+                map.put("income", "¥"+ nf.format(perMonthIncomes[i]));
+                map.put("surplus","¥"+ nf.format(sub(perMonthIncomes[i] , perMonthCosts[i])));
                 list.add(map);
             }
 
