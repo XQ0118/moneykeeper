@@ -247,9 +247,20 @@ public class LastYearFragment extends Fragment {
 
         NumberFormat nf = new DecimalFormat("#,###.##");
         String str = nf.format(total_expend_money);
-        total_expend.setText("¥ "+str);
+        if(total_expend_money == 0.00){
+            total_expend.setText("0.00");
+        }
+        else {
+            total_expend.setText("¥ "+str);
+        }
+
         String str1 = nf.format(total_income_money);
-        total_income.setText("¥ "+str1);
+        if(total_income_money == 0.00){
+            total_income.setText("0.00");
+        }else {
+            total_income.setText("¥ " + str1);
+        }
+
     }
 
     public  void setYearCostData(String years){

@@ -39,7 +39,7 @@ public class ChartUtils {
 
 
         line.setStrokeWidth(1);//设置线的宽度
-        line.setPointRadius(4);//坐标点大小
+        line.setPointRadius(3);//坐标点大小
         line.setCubic(true);//曲线是否平滑，即是曲线还是折线
 //        line.setFilled(true);//是否填充曲线的面积
         line.setHasLabels(true);//曲线的数据坐标是否加上备注
@@ -50,7 +50,7 @@ public class ChartUtils {
 
 
         line1.setStrokeWidth(1);//设置线的宽度
-        line1.setPointRadius(4);//坐标点大小
+        line1.setPointRadius(3);//坐标点大小
         line1.setCubic(true);//曲线是否平滑，即是曲线还是折线
 //        line1.setFilled(true);//是否填充曲线的面积
         line1.setHasLabels(true);//曲线的数据坐标是否加上备注
