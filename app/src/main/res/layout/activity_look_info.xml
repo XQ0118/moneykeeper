@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_gradient"
+        android:paddingBottom="8dp">
+
+        <include
+            android:id="@+id/toolbarLayout"
+            layout="@layout/info_toolbar" />
+
+        <include
+            android:id="@+id/headView"
+            layout="@layout/headpager_left"/>
+
+
+
+    </android.support.design.widget.AppBarLayout>
+
+
+    <ListView
+        android:paddingHorizontal="5dp"
+        android:id="@+id/lv_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:divider="@null"
+        android:fadingEdge="none"
+        android:headerDividersEnabled="false"
+        android:footerDividersEnabled="false"
+        android:layout_margin="10dp"
+        android:dividerHeight="10dp"
+        android:fastScrollEnabled="false"
+        android:scrollbars="none">
+
+    </ListView>
+
+
+
+
+</LinearLayout>

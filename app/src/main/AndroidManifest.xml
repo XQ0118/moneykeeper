@@ -15,11 +15,13 @@
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".AddcostActivity"
@@ -40,14 +42,19 @@
         <activity
             android:name=".ChartActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/ChartActivity"></activity>
-        <activity android:name=".Splash"
+            android:theme="@style/ChartActivity" />
+        <activity
+            android:name=".Splash"
             android:theme="@style/Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".LookInfoActivity"
+            android:theme="@style/LookInfoActivity">
+
         </activity>
     </application>
 

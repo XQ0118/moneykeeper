@@ -1,11 +1,14 @@
 package cn.edu.hznu.moneykeeper.chart_fragment;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -13,6 +16,7 @@ import android.widget.TextView;
 
 import org.litepal.LitePal;
 
+import java.io.BufferedReader;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -24,6 +28,7 @@ import java.util.Map;
 
 import cn.edu.hznu.moneykeeper.Adapter.MonthListAdapter;
 import cn.edu.hznu.moneykeeper.CostBean;
+import cn.edu.hznu.moneykeeper.LookInfoActivity;
 import cn.edu.hznu.moneykeeper.R;
 import cn.edu.hznu.moneykeeper.Util.DateUtils;
 import lecho.lib.hellocharts.model.Axis;
@@ -90,7 +95,8 @@ public class ThisYearFragment extends Fragment {
     protected String days_next;
     private TextView dateTv;  //时间选择
     public String year_need;
-
+    protected int mIntentYear;
+    protected String Intentdays;
 
     public LineChartView mChart;
     public LineChartData mData;
@@ -108,6 +114,8 @@ public class ThisYearFragment extends Fragment {
     private ListView mListView;
     private MonthListAdapter mMonthListAdapter;
     private List<Map<String, Object>> list;
+
+    public String intentyear;
 
     private View rootView;
 
@@ -431,6 +439,27 @@ public class ThisYearFragment extends Fragment {
         };
         mListView.setAdapter(adapter);
         mListView.setEmptyView(mEmptyTv);
+
+        this.mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String year = list.get(position).get("year").toString().substring(0, 4) ;
+                String month = list.get(position).get("months").toString();
+                StringBuffer mon = new StringBuffer(month);
+                mon.deleteCharAt(mon.length()-1);
+                String month_ = mon.toString();
+                DecimalFormat df = new DecimalFormat("00");
+                month_ =df.format(Integer.parseInt(month_));
+                String intentdays = year+"-"+month_;
+
+
+                Log.d("12345", intentdays);
+                Log.d("12345", month_);
+                Intent intent = new Intent(getActivity(), LookInfoActivity.class);
+                intent.putExtra("intentdays", intentdays);
+                startActivity(intent);
+            }
+        });
     }
 
     private void initDataList() {

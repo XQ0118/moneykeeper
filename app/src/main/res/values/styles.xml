@@ -54,8 +54,16 @@
 
     <!-- Base application theme. -->
     <style name="Splash" parent="Theme.AppCompat.NoActionBar">
+    </style>
 
-
+    <!-- Base application theme. -->
+    <style name="LookInfoActivity" parent="Theme.AppCompat.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/md_black_1000</item>
+        <item name="colorPrimaryDark">@color/md_black_1000</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/md_black_1000</item>
+        <item name="android:windowContentOverlay">@null</item>
     </style>
 
 
